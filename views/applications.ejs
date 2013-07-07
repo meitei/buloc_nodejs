@@ -1,0 +1,233 @@
+<div class="container">
+
+  <div class="navbar navbar-fixed-top" style="position: absolute;">
+    <div class="navbar-inner">
+      <div class="container" style="width: auto; padding: 0 20px;">
+        <a class="brand" href="#">Buloc</a>
+        <ul class="nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">AppSetting</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+
+  <br />
+  <div id="main">
+    <table id="list">
+    </table>
+    <br />
+    <button id="btn_new" class="btn">新規作成</button>
+    <button id="btn_upd" class="btn">修正</button>
+    <button id="btn_del" class="btn">削除</button>
+    <a id="btn_def" class="btn" href="/appSettings">定義</a>
+  </div>
+  <div id="dialog_new" title="new application">
+    <%= render 'form' %>
+  </div>
+</div>
+
+<br />
+
+<script type="text/javascript">
+
+  var Application = Backbone.Model.extend({
+    urlRoot: '/applications',
+    validate: function(attrs) {
+      if (_.isEmpty(attrs.name)) {
+        return '名前は必須項目です。';
+      } else if (attrs.name.length > 30) {
+        return '30文字以内で入力してください。';
+      }
+    }
+  });
+
+  var Applications = Backbone.Collection.extend({
+    model: Application,
+    url: '/applications'
+  });
+
+  var AppView = Backbone.View.extend({
+    el: '#main',
+    events: {
+      "click #btn_new": "openNewDialogOnClick",
+      "click #btn_upd": "openUpdDialogOnClick",
+      "click #btn_del": "deleteOnClick",
+      "click #btn_def": "definitionOnClick"
+      // "click #dialog_regist": "createOnClick"
+    },
+    initialize: function() {
+      // this.input = this.$('#name');
+      this.list = this.$("#list");
+      this.listenTo(this.collection, 'add', this.addOne);
+      this.listenTo(this.collection, 'change', this.changeOne);
+      this.listenTo(this.collection, 'remove', this.removeOne);
+      this.collection.fetch();
+    },
+    addOne: function(app) {
+      console.debug('run add! cid(rowid)->['+app.cid+']');
+      console.debug(app.attributes);
+      // this.$("#list").addRowData(app.cid, app.attributes);
+      this.list.addRowData(app.cid, app.attributes);
+      // !app.isNew() || this.list.setSelection(app.cid, false);
+    },
+    changeOne: function(app) {
+      console.debug('run update! cid(rowid)->['+app.cid+']');
+      console.debug(app.attributes);
+      // this.$("#list").setRowData(app.cid, app.attributes);
+      this.list.setRowData(app.cid, app.attributes);
+    },
+    removeOne: function(app) {
+      console.debug('run remove! cid(rowid)->['+app.cid+']');
+      this.list.delRowData(app.cid);
+    },
+    openNewDialogOnClick: function() {
+      console.info('clicked new button!');
+      // this.dialog.openDialog(false, this, null);
+      this.trigger('clicked', null);
+    },
+    openUpdDialogOnClick: function() {
+      console.info('clicked upd button!');
+      var rowid = this.list.getGridParam("selrow");
+      console.debug(rowid);
+      if(!rowid) return false;
+      var rowData = this.list.getRowData(rowid);
+      // console.debug(rowData);
+      var app = this.collection.get({id: rowData.id});
+
+      // this.dialog.openDialog(true, this, rowData);
+      this.trigger('clicked', app);
+    },
+    deleteOnClick: function() {
+      console.info('clicked del button!');
+      var rowid = this.list.getGridParam("selrow");
+      if(!rowid) return false;
+      var rowData = this.list.getRowData(rowid);
+      // console.debug(rowData);
+      var app = this.collection.get({id: rowData.id});
+      this.collection.remove(app);
+      // console.debug(app);
+      app.destroy();
+    },
+    definitionOnClick: function(e) {
+      e.preventDefault();
+      console.info('clicked definition button!');
+      var rowid = this.list.getGridParam("selrow");
+      if(!rowid) return false;
+      var rowData = this.list.getRowData(rowid);
+      // move setting page.
+      var url = '/appsettings/' + rowData.id;
+      console.debug(url)
+      window.location = url;
+      // Backbone.history.navigate(url, true);
+    }
+  });
+
+  var DialogView = Backbone.View.extend({
+    el: '#dialog_new',
+    events: {
+      "click #dialog_regist": "registOnClick",
+      "click #dialog_close": "closeOnClick"
+    },
+    initialize: function() {
+      this.input = this.$('#name');
+      // (this.$el).hide();
+    },
+    registOnClick: function() {
+      console.debug('click regist button.');
+      console.debug('regist data [name='+this.input.val()+']');
+      if (this.app) {
+        // app model exists.
+        // this.app.set('name', this.input.val());
+        if (!this.app.save({name: this.input.val()}, {wait: true})) {
+          console.debug('validate failed.');
+          return;
+        }
+      } else {
+        var new_model = this.collection.create(
+          {name: this.input.val()},
+          {wait: true},
+          {success: function(response){
+            console.debug('success update.');
+            // console.debug(new_item);
+          },
+          error: function(msg) {
+            console.debug(msg);
+            alert('err');
+          }
+        });
+        // console.debug(new_item);
+        if (new_model.validationError) {
+          console.debug('validate failed.');
+          alert(new_model.validationError);
+          return;
+        }
+      }
+      this.input.val('');
+      //close window.
+      (this.$el).dialog('close');
+    },
+    closeOnClick: function() {
+      console.debug('click close button.');
+      this.input.val('');
+      //close window.
+      (this.$el).dialog('close');
+    },
+    openDialog: function(app) {
+      console.debug(app);
+      this.app = app;
+      app && this.input.val(app.get('name'));
+      (this.$el).dialog({
+        show: {effect: "clip"},
+        hide: {effect: "clip"},
+        width: "auto",
+        modal: true
+      });
+
+    }
+  });
+
+  jQuery(document).ready(function()
+  {
+      var dateFormatOps = {srcformat: 'Y-m-dTH:i:s',newformat: 'Y/m/d h:i:s'};
+      jQuery("#list").jqGrid({
+          data: [],
+          datatype: "local",
+          colNames:['コード', 'アプリ名', '作成日', '更新日'],
+          colModel:[
+              {name:'id'},
+              {name:'name'},
+              {name:'created_at', formatter:'date', formatoptions: dateFormatOps},
+              {name:'updated_at', formatter:'date', formatoptions: dateFormatOps},
+          ],
+          multiselect: false,                  // 行の複数選択はしない（単一選択）
+          caption: 'アプリ一覧',                   // グリッドのタイトル
+          scrollrows: true
+      }); 
+
+      $("#dialog_new").hide();
+      // $("#btn_new").click(function () {
+      //     return false;
+      // });
+      
+      var apps = new Applications;
+      var appView = new AppView({collection: apps});
+      var dialogView = new DialogView({collection: apps});
+
+      appView.on('clicked', function(rowData){
+        dialogView.openDialog(rowData)
+      });
+      apps.on('invalid', function(errModel){
+        console.debug(errModel);
+        alert(errModel.validationError);
+      });
+
+      // Backbone.history.start({pushState: true});
+      
+  });
+
+</script>

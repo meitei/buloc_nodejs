@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>Buloc</title>
+  <link href="/assets/stylesheets/jquery-ui-1.10.3.custom.css" media="all" rel="stylesheet" />
+  <link href="/assets/stylesheets/custom-theme/jquery-ui-1.10.3.custom.css" media="all" rel="stylesheet" />
+  <link href="/assets/stylesheets/ui.jqgrid.css" media="all" rel="stylesheet" />
+  <link href="/assets/stylesheets/bootstrap.css" media="all" rel="stylesheet" />
+  <link href="/assets/stylesheets/base.css" media="all" rel="stylesheet" />
+  <script src="/assets/javascripts/lib/require.js" data-main="/assets/javascripts/require.config"></script>
+</head>
+<body>
+
+<!-- header -->
+
+<div class="container">
+
+  <div class="navbar navbar-fixed-top" style="position: absolute;">
+    <div class="navbar-inner">
+      <div class="container" style="width: auto; padding: 0 20px;">
+        <a class="brand" href="#">Buloc</a>
+        <ul class="nav">
+          <li><a href="/">Home</a></li>
+          <li class="active"><a href="#">AppSetting</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+
+<!--
+<ul class="breadcrumb">
+  <li><a href="#">Home</a> <span class="divider">/</span></li>
+  <li class="active">AppSetting</li>
+</ul>
+-->
+
+<div id="menuView" style="float:left;">
+<ul id="menu" class="nav nav-list">
+  <!-- <li class="ui-state-disabled"><a href="#">Aberdeen</a></li> -->
+  <li class="nav-header"><a id="lnk_attribute" href="#">Application</a></li>
+  <li><a id="lnk_attribute" href="#">Attribute</a></li>
+  <li><a id="lnk_view" href="#">View</a></li>
+  <li><a id="lnk_display" href="#">Display</a></li>
+  <li><a id="lnk_service" href="#">Service</a></li>
+  <li><a id="lnk_logic" href="#">Logic</a></li>
+  <li><a id="lnk_entity" href="#">Entity</a></li>
+</ul>
+</div>
+<div id="contents" class="ui-body-area">
+	<!-- <p>default</p> -->
+</div>
+<div id="dialog_attribute" title="attribute dialog">
+<%- include _form_attribute.ejs %>
+</div>
+<div id="dialog_view" title="view dialog">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#basic" data-toggle="tab">基本</a>
+    </li>
+    <li>
+      <a href="#attr_list" data-toggle="tab">属性一覧</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade active in" id="basic">
+      <%- include _form_view.ejs %>
+    </div>
+    <div class="tab-pane fade" id="attr_list">
+      <div id="viewAttrs">
+      </div>
+    </div>
+  </div>
+
+</div>
+<div id="dialog_view_attr" title="view attrs dialog">
+  <%- include _form_view_attr.ejs %>
+</div>
+
+<div id="dialog_entity" title="entity dialog">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#entity_basic" data-toggle="tab">基本</a>
+    </li>
+    <li>
+      <a href="#entity_attr" data-toggle="tab">属性一覧</a>
+    </li>
+    <li>
+      <a href="#entity_history" data-toggle="tab">変更履歴</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade active in" id="entity_basic">
+      <%- include _form_entity.ejs %>
+    </div>
+    <div class="tab-pane fade" id="entity_attr">
+      <div id="entityAttrs">
+      </div>
+    </div>
+    <div class="tab-pane fade" id="entity_history">
+      <div id="entityHistories">
+      </div>
+    </div>
+  </div>
+</div>
+<div id="dialog_entity_attr" title="entity attrs dialog">
+  <%- include _form_entity_attr.ejs %>
+</div>
+
+<div id="dialog_find">
+  <div id="cond">
+    <form class="well form-horizontal">
+    <div class="control-group">
+      <label for="app_name" class="control-label" for="app_name">app name:</label>
+      <div class="controls">
+        <input type="text" id="app_name" name="app_name" class="input-xlarge">
+        <a id="dialog_find" class="btn">検索</a>
+      </div>
+    </div>
+    </form>
+  </div>
+  <table id="list"></table>
+  <div class="form-actions">
+    <a id="dialog_fix" class="btn btn-primary">確定</a>
+    <a id="dialog_close" class="btn">閉じる</a>
+  </div>
+</div>
+
+<style>
+  .ui-menu {
+  	width: 150px;
+    margin-top: 5px;
+  	margin-right: 0px;
+  }
+  .ui-body-area {
+  	/*background-color:green;*/
+  	float:left;
+  	width: 700px;
+  	height: 300px;
+  	margin-top: 5px;
+  	margin-left: 20px;
+  	padding-left: 5px;
+  	border-radius: 4px;
+  	border: 1px solid #808080;
+  }
+
+</style>
+
+</div>
+
+<!-- footer -->
+
+<footer class="footer">
+  <div class="container">
+    <p>Copyright (c) CyberGrow Inc. All Rights Reserved.</p>
+    <ul class="footer-links">
+      <li><a href="http://www.cybergrow.co.jp/">Web</a></li>
+      <li class="muted">-</li>
+      <li><a href="#">Issues</a></li>
+      <li class="muted">-</li>
+      <li><a href="#">Changelog</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
