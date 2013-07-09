@@ -5,7 +5,8 @@ define([
   var Displays = Backbone.Collection.extend({
     model: Display,
     url: '/displays',
-    modelName: 'display'
+    modelName: 'display',
+    parentKeyId: 'app_id'
   });
   return Displays;
 });

@@ -5,7 +5,8 @@ define([
   var Entities = Backbone.Collection.extend({
     model: Entity,
     url: '/entities',
-    modelName: 'entity'
+    modelName: 'entity',
+    parentKeyId: 'app_id'
   });
   return Entities;
 });

@@ -33,6 +33,19 @@ require([
     $("#dialog_view_attr").hide(); // hide child dialog.
     $("#dialog_entity_attr").hide(); // hide child dialog.
 
+    var url = {};
+    var urlPattern = /(\w+):\/\/([\w.]+)\/(\S*)/;
+    var result = window.location.href.match(urlPattern);
+    if (result != null) {
+      url.fullurl = result[0];
+      url.protocol = result[1];
+      url.host = result[2];
+      url.action = result[3];
+      url.id = result[4];
+  ￼￼}
+    console.debug('url =>');
+    console.debug(url);
+
     var contentsView = new ContentsView();
     contentsView.render();
 

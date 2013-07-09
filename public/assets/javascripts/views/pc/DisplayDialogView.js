@@ -42,7 +42,7 @@ define([
           var options = {};
           if (!_.isUndefined(self.model)) {
             options.edit = function(data) {
-              data.view_id = self.model.get("id");
+              data.view_id = self.model.get("_id");
             };
           }
           dialogView.openDialog(model, options);

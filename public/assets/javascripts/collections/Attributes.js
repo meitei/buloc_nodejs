@@ -5,7 +5,8 @@ define([
   var Attributes = Backbone.Collection.extend({
     model: Attribute,
     url: '/attributes',
-    modelName: 'attribute'
+    modelName: 'attribute',
+    parentKeyId: 'app_id'
   });
   return Attributes;
 });

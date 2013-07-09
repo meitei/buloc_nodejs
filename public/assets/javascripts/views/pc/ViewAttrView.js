@@ -21,7 +21,7 @@ define([
         datatype: "local",
         colNames:['コード', '属性名', 'コントロール', '作成日', '更新日'],
         colModel:[
-          {name:'id'},
+          {name:'_id'},
           {name:'attr_name'},
           {name:'control_type'},
           {name:'created_at', formatter:'date', formatoptions: dateFormatOps},
@@ -36,7 +36,7 @@ define([
       console.debug("ViewAttrView#fetch");
       if (!_.isEmpty(this.parent.model)) {
         console.debug(this.parent.model);
-        var parent_id = this.parent.model.get('id');
+        var parent_id = this.parent.model.get('_id');
         console.debug('parent_id->' + parent_id);
         var conds = {view_id: parent_id};
         this.collection.fetch({

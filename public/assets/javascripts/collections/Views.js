@@ -5,7 +5,8 @@ define([
   var Views = Backbone.Collection.extend({
     model: View,
     url: '/views',
-    modelName: 'view'
+    modelName: 'view',
+    parentKeyId: 'app_id'
   });
   return Views;
 });

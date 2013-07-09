@@ -54,14 +54,14 @@ define([
       var rowid = this.list.getGridParam("selrow");
       if(!rowid) return false;
       var rowData = this.list.getRowData(rowid);
-      var model = this.collection.get({id: rowData.id});
+      var model = this.collection.where({_id: rowData._id}).shift();
       this.trigger('clicked', model);
     },
     deleteOnClick: function() {
       var rowid = this.list.getGridParam("selrow");
       if(!rowid) return false;
       var rowData = this.list.getRowData(rowid);
-      var model = this.collection.get({id: rowData.id});
+      var model = this.collection.where({_id: rowData._id}).shift();
       this.collection.remove(model);
       model.destroy();
     }

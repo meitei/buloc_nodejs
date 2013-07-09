@@ -43,6 +43,8 @@ require([
   'jquery',
   'backbone',
   'routers/appsettings.pc',
+  'commons/helper',
+
   'views/pc/ContentsView',
   'views/pc/MenuView',
 
@@ -62,7 +64,8 @@ require([
   'views/pc/EntityView',
   'views/pc/EntityDialogView'
 
-], function($, Backbone, Router, ContentsView, MenuView,
+], function($, Backbone, Router, Helper,
+    ContentsView, MenuView,
     Attributes, AttributeView, AttributeDialogView,
     Views, ViewView, ViewDialogView,
     Displays, DisplayView, DisplayDialogView,
@@ -74,6 +77,24 @@ require([
     $("#dialog_view_attr").hide(); // hide child dialog.
     $("#dialog_entity_attr").hide(); // hide child dialog.
 
+    // // get url attributes.
+    // var url = {};
+    // var urlPattern = /(\w+):\/\/([\w.:]+)\/(\S+)\/([\w]+)/;
+    // var result = window.location.href.match(urlPattern);
+    // if (result != null) {
+    //   url.fullurl = result[0];
+    //   url.protocol = result[1];
+    //   url.host = result[2];
+    //   url.action = result[3];
+    //   url.id = result[4];
+    // }
+
+    // var appInfo = {url: url};
+
+    // get url attributes.
+    var helper = new Helper();
+    helper.getUrl();
+
     var contentsView = new ContentsView();
     contentsView.render();
 
@@ -81,6 +102,8 @@ require([
     var attributes = new Attributes();
     var attributeView = new AttributeView({collection: attributes});
     var attributeDialogView = new AttributeDialogView({collection: attributes});
+
+    // console.debug(AttributeDialogView.prototype);
 
     // def views
     var views = new Views();

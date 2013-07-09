@@ -25,7 +25,7 @@ define([
       var findDialog = new AttributeFindDialogView({collection: attrs});
       findDialog.render();
       findDialog.openDialog(null, {
-        'id': this.$('#attr_id'),
+        '_id': this.$('#attr_id'),
         'name': this.$('#attr_name')
       });
     },

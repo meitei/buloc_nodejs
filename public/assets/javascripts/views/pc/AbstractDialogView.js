@@ -30,21 +30,23 @@ define([
       console.debug('click regist button.');
       // console.debug(this.form);
       var formObj = this.form.serializeForm();
-      console.debug('regist data => ');
+      console.debug('form data => ');
       console.debug(formObj);
       // ** FIXME **
       var registData = this.options.edit(formObj);
+      console.debug('regist data => ');
+      console.debug(registData);
 
       if (this.model) {
         console.debug('model exists. run update.');
         // model exists.
-        if (!this.model.save(formObj, {wait: true})) {
+        if (!this.model.save(registData, {wait: true})) {
           console.debug('validate failed.');
           return;
         }
       } else {
         console.debug('model not exists. run insert.');
-        var model = new this.collection.model(formObj, {validate: false});
+        var model = new this.collection.model(registData, {validate: false});
         this.listenTo(model, 'error', this.editError);
         if (!model.isValid) return;
         var newModel = this.collection.create(
@@ -91,7 +93,8 @@ define([
     },
     openDialog: function(model, options) {
       console.debug('AbstractDialogView:openDialog');
-      // console.debug(model);
+      console.debug(model);
+      console.debug(options);
       // console.debug(options);
       this.model = model;
       this.options = ((_.isNull(options) || _.isUndefined(options)) ? {} : options);

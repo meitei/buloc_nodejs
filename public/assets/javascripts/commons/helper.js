@@ -39,6 +39,28 @@ define([
         select.append(option);
       });
     };
+
+    this.getUrl = function() {
+      // get url attributes.
+      if ( _.isUndefined(this._url) ) {
+        var url = {};
+        var urlPattern = /(\w+):\/\/([\w.:]+)\/(\S+)\/([\w]+)/;
+        var result = window.location.href.match(urlPattern);
+        if (result != null) {
+          url.fullurl = result[0];
+          url.protocol = result[1];
+          url.host = result[2];
+          url.action = result[3];
+          url.id = result[4];
+          // (url.fullurl, url.protocol, url.host, url.action, url.id) = result;
+        }
+        console.debug('url =>');
+        console.debug(url);
+        this._url = url;
+      }
+      return this._url;
+    };
+
   }
   return Helper;
 });

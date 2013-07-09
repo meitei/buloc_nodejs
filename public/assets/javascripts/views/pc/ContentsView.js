@@ -3,8 +3,9 @@
 define([
   'jquery',
   'underscore',
-  'backbone'
-], function($, _, Backbone) {
+  'backbone',
+  'commons/helper'
+], function($, _, Backbone, Helper) {
   var ContentsView = Backbone.View.extend({
     el: '#contents',
     events: {
@@ -31,7 +32,18 @@ define([
         view.render();
         view.on('clicked', function(model){
           dialogView.render(view);
-          dialogView.openDialog(model);
+          var helper = new Helper();
+          var parentId = helper.getUrl().id;
+          console.debug('get parent id =>' + parentId);
+          var parentKeyId = view.collection.parentKeyId;
+          if (parentKeyId) {
+            dialogView.openDialog(model, {edit: function(data) {
+              data[parentKeyId] = parentId;
+              return data;
+            }});
+          } else {
+            dialogView.openDialog(model);
+          }
         });
       }
       view.show();
