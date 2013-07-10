@@ -18,7 +18,7 @@ define([
         colNames:['コード', '属性名', '説明'],
         colModel:
         [
-          {name:'_id'},
+          {name:'id'},
           {name:'name'},
           {name:'caption'}
         ],

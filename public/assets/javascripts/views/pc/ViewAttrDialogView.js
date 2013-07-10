@@ -29,7 +29,7 @@ define([
       var findDialog = new AttributeFindDialogView({collection: attrs});
       findDialog.render();
       findDialog.openDialog(null, {
-        '_id': this.$('#attr_id'),
+        'id': this.$('#attr_id'),
         'name': this.$('#attr_name')
       });
     },

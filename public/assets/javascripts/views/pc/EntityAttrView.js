@@ -16,7 +16,7 @@ define([
         datatype: "local",
         colNames:['コード', '属性名', '作成日', '更新日'],
         colModel:[
-          {name:'_id'},
+          {name:'id'},
           {name:'attr_name'},
           {name:'created_at', formatter:'date', formatoptions: dateFormatOps},
           {name:'updated_at', formatter:'date', formatoptions: dateFormatOps}
@@ -29,7 +29,7 @@ define([
     fetch: function() {
       console.debug("EntityAttrView#fetch");
       if (!_.isEmpty(this.parent.model)) {
-        var parent_id = this.parent.model.get('_id');
+        var parent_id = this.parent.model.get('id');
         var conds = {entity_id: parent_id};
         this.collection.fetch({
           data: {params: conds},

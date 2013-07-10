@@ -21,8 +21,7 @@ module.exports = function(mongoose) {
     },
     create: {
       json: function(req, res) {
-        // console.log(req);
-        var attribute = new Attributes(req.body);
+        var attribute = new Attributes(data);
         attribute.save(function(err) {
           if (err) console.error(err);
           res.send(JSON.stringify(attribute));
@@ -41,12 +40,31 @@ module.exports = function(mongoose) {
     },
     update: {
       json: function(req, res) {
+        console.log('receive update request.');
+        console.log('req.body =>');
+        console.log(req.body);
+        console.log('req.params =>');
+        console.log(req.params);
 
+
+
+        Attributes.update({id: req.params.id}, req.body, function(err) {
+          if (err) console.error(err);
+        });
+        res.send('updated.');
       }
     },
     destroy: {
       json: function(req, res) {
-
+        console.log('receive delete request.');
+        // console.log('req.body =>');
+        // console.log(req.body);
+        // console.log('req.params =>');
+        // console.log(req.params);
+        Attributes.remove({id: req.params.id}, function(err) {
+          if (err) console.error(err);
+        });
+        res.send('deleted.');
       }
     },
   };

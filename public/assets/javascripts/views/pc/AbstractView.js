@@ -54,14 +54,18 @@ define([
       var rowid = this.list.getGridParam("selrow");
       if(!rowid) return false;
       var rowData = this.list.getRowData(rowid);
-      var model = this.collection.where({_id: rowData._id}).shift();
+      // var model = this.collection.where({_id: rowData._id}).shift();
+      var model = this.collection.get(rowData.id);
       this.trigger('clicked', model);
     },
     deleteOnClick: function() {
       var rowid = this.list.getGridParam("selrow");
       if(!rowid) return false;
       var rowData = this.list.getRowData(rowid);
-      var model = this.collection.where({_id: rowData._id}).shift();
+      // var model = this.collection.where({_id: rowData._id}).shift();
+      var model = this.collection.get(rowData.id);
+      console.debug('remove model.');
+      console.debug(model);
       this.collection.remove(model);
       model.destroy();
     }

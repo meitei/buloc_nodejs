@@ -16,7 +16,7 @@ define([
         datatype: "local",
         colNames:['コード', '画面名', '作成日', '更新日'],
         colModel:[
-          {name:'_id'},
+          {name:'id'},
           {name:'name'},
           {name:'created_at', formatter:'date', formatoptions: dateFormatOps},
           {name:'updated_at', formatter:'date', formatoptions: dateFormatOps}

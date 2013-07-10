@@ -21,7 +21,7 @@ define([
         datatype: "local",
         colNames:['コード', '属性名', 'コントロール', '作成日', '更新日'],
         colModel:[
-          {name:'_id'},
+          {name:'id'},
           {name:'attr_name'},
           {name:'control_type'},
           {name:'created_at', formatter:'date', formatoptions: dateFormatOps},
