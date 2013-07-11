@@ -3,8 +3,3 @@ exports.index = exports.show = {
     res.render('appsettings');
   }
 };
-// exports.show = {
-//   html: function(req, res){
-//     res.render('appsettings');
-//   }
-// };

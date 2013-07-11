@@ -11,3 +11,13 @@ exports.schema = function(mongoose) {
     updated_at: {type: Number, default: Date.now}
   });
 };
+
+// to use update filter.
+exports.filter = {
+  name: true,
+  caption: true,
+  data_type: true,
+  length: true,
+  decimal: true,
+  app_id: true
+}

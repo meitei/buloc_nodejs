@@ -3,7 +3,8 @@ exports.getModel = function(mongoose, modelName) {
   if (modelName in mongoose.models) {
     modelClass = mongoose.model(modelName);
   } else {
-    var schema = require('./' + modelName).schema(mongoose);
+    var modelDefine = require('./' + modelName);
+    var schema = modelDefine.schema(mongoose);
     schema.pre('save', function(next) {
         if(!this.isNew) return next();
      
@@ -25,9 +26,16 @@ exports.getModel = function(mongoose, modelName) {
             }
         });
     });
-
+    // add filter method to schema.
+    var filter = modelDefine.filter;
+    schema.statics.filter = function(params) {
+      var result = {};
+      for (var key in filter) {
+        if (filter[key]) result[key] = params[key];
+      }
+      return result;
+    };
     modelClass = mongoose.model(modelName, schema);
-
   }
   return modelClass;
 };
