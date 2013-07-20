@@ -5,12 +5,9 @@ exports.schema = (mongoose) ->
       default: 0
       required: true
 
-    name: String
+    attr_id: Number
     caption: String
-    data_type: String
-    length: Number
-    decimal: Number
-    app_id: Number
+
     created_at:
       type: Number
       default: Date.now
@@ -22,9 +19,5 @@ exports.schema = (mongoose) ->
 
 # to use update filter.
 exports.filter =
-  name: true
+  attr_id: true
   caption: true
-  data_type: true
-  length: true
-  decimal: true
-  app_id: true

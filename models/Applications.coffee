@@ -7,10 +7,11 @@ exports.schema = (mongoose) ->
 
     name: String
     caption: String
-    data_type: String
-    length: Number
-    decimal: Number
-    app_id: Number
+    tags: String
+    group: String
+    public: Boolean
+    owner: Number
+
     created_at:
       type: Number
       default: Date.now
@@ -24,7 +25,6 @@ exports.schema = (mongoose) ->
 exports.filter =
   name: true
   caption: true
-  data_type: true
-  length: true
-  decimal: true
-  app_id: true
+  tags: true
+  group: true
+  public: true

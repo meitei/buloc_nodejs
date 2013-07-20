@@ -9,8 +9,8 @@ exports.getModel = (mongoose, modelName) ->
       return next()  unless @isNew
       model = this
       model.db.db.executeDbCommand
-        findAndModify: "sequence" # 'コマンド名': '対象のコレクション名'
-        query: # 検索オプション
+        findAndModify: "sequence"
+        query:
           name: model.collection.name
 
         update:
