@@ -1,0 +1,129 @@
+!!! 5
+html(lang='ja')
+head
+    title Buloc
+    link(href='/assets/stylesheets/jquery-ui-1.10.3.custom.css', media='all', rel='stylesheet')
+    link(href='/assets/stylesheets/custom-theme/jquery-ui-1.10.3.custom.css', media='all', rel='stylesheet')
+    link(href='/assets/stylesheets/ui.jqgrid.css', media='all', rel='stylesheet')
+    link(href='/assets/stylesheets/bootstrap.css', media='all', rel='stylesheet')
+    link(href='/assets/stylesheets/base.css', media='all', rel='stylesheet')
+    script(src='/assets/javascripts/lib/require.js', data-main='/assets/javascripts/require.config')
+  body
+    //
+       header 
+    .container
+      .navbar.navbar-fixed-top(style='position: absolute;')
+        .navbar-inner
+          .container(style='width: auto; padding: 0 20px;')
+            a.brand(href='#') Buloc
+            ul.nav
+              li
+                a(href='/') Home
+              li.active
+                a(href='#') AppSetting
+              li
+                a(href='#') Link
+      br
+      br
+      br
+      //
+        |<ul class="breadcrumb">
+        |  <li><a href="#">Home</a> <span class="divider">/</span></li>
+        |  <li class="active">AppSetting</li>
+        |</ul>
+      #menuView(style='float: left;')
+        ul#menu.nav.nav-list
+          //
+             <li class="ui-state-disabled"><a href="#">Aberdeen</a></li> 
+          li.nav-header
+            a#lnk_attribute(href='#') Application
+          li
+            a#lnk_attribute(href='#') Attribute
+          li
+            a#lnk_view(href='#') View
+          li
+            a#lnk_display(href='#') Display
+          li
+            a#lnk_service(href='#') Service
+          li
+            a#lnk_logic(href='#') Logic
+          li
+            a#lnk_entity(href='#') Entity
+      #contents.ui-body-area
+        //
+           <p>default</p> 
+      #dialog_attribute(title='attribute dialog')
+        include _form_attribute
+      #dialog_view(title='view dialog')
+        ul.nav.nav-tabs
+          li.active
+            a(href='#basic', data-toggle='tab') 基本
+          li
+            a(href='#attr_list', data-toggle='tab') 属性一覧
+        .tab-content
+          #basic.tab-pane.fade.active.in
+            include _form_view
+          #attr_list.tab-pane.fade
+            #viewAttrs
+      #dialog_view_attr(title='view attrs dialog')
+        include _form_view_attr
+      #dialog_entity(title='entity dialog')
+        ul.nav.nav-tabs
+          li.active
+            a(href='#entity_basic', data-toggle='tab') 基本
+          li
+            a(href='#entity_attr', data-toggle='tab') 属性一覧
+          li
+            a(href='#entity_history', data-toggle='tab') 変更履歴
+        .tab-content
+          #entity_basic.tab-pane.fade.active.in
+            include _form_entity
+          #entity_attr.tab-pane.fade
+            #entityAttrs
+          #entity_history.tab-pane.fade
+            #entityHistories
+      #dialog_entity_attr(title='entity attrs dialog')
+        include _form_entity_attr
+      #dialog_find
+        #cond
+          form.well.form-horizontal
+            .control-group
+              label.control-label(for='app_name') app name:
+              .controls
+                input#app_name.input-xlarge(type='text', name='app_name')
+                a#dialog_find.btn 検索
+        table#list
+        .form-actions
+          a#dialog_fix.btn.btn-primary 確定
+          a#dialog_close.btn 閉じる
+      style
+        .ui-menu {
+        width: 150px;
+        margin-top: 5px;
+        margin-right: 0px;
+        }
+        .ui-body-area {
+        /*background-color:green;*/
+        float:left;
+        width: 700px;
+        height: 300px;
+        margin-top: 5px;
+        margin-left: 20px;
+        padding-left: 5px;
+        border-radius: 4px;
+        border: 1px solid #808080;
+        }
+    //
+      footer
+    footer.footer
+      .container
+        p Copyright (c) CyberGrow Inc. All Rights Reserved.
+        ul.footer-links
+          li
+            a(href='http://www.cybergrow.co.jp/') Web
+          li.muted -
+          li
+            a(href='#') Issues
+          li.muted -
+          li
+            a(href='#') Changelog

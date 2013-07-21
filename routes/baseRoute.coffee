@@ -1,17 +1,74 @@
+jade = require("jade")
+glob = require("glob")
+fs = require("fs")
+
 class BaseRoute
   constructor: (@app, @db) ->
+
+  precompile: ->
+
+    # @templates = undefined
+    @templates = {}
+    # compile templates
+    # app.set "templates", {}
+    glob "**/*.jade", null, (err, files) =>
+      # obj = {}
+      for file in files
+        console.log "compile ... #{file}"
+        # fs.readFile file, 'utf8', (ferr, fdata) ->
+        fdata = fs.readFileSync file, 'utf8'
+        # console.log "finished to read file, #{file}"
+        fn = jade.compile fdata,
+          filename: file
+          client: true
+          pretty: false
+          compileDebug: false
+        # templates = app.get "templates"
+        key = file.split('.').shift().split('/').pop()
+        # console.log templates
+        @templates[key] = fn
+        console.log "template =>"
+        console.log @templates
+      # app.set "templates", templates
+      # @templates = obj
 
   add: (routePath, modelName) ->
     console.log "add routePath: #{routePath}"
 
-    models = require("../models/Models")
-    Model = models.getModel(@db, modelName)
+    if modelName
+      models = require("../models/Models")
+      Model = models.getModel(@db, modelName)
 
-    route = this.getRoute(Model)
+      route = this.getRoute(Model)
 
-    @app.resource routePath, route,
-      id: "id"
-      format: "json"
+      @app.resource routePath, route,
+        id: "id"
+        format: "json"
+    else
+      # app = @app
+      # templates = @templates
+      # console.log @templates
+      # jade = @jade
+      wr =
+        html: (req, res) =>
+          # for k,v of @templates
+          #   console.log "template key => #{k}"
+          # if routePath of @templates
+          #   console.log "find ;) compiled template."
+          #   fn = @templates[routePath]
+          #   res.send fn()
+          # else
+          #   console.log "not find X) compiled template."
+          #   res.render routePath
+          res.render routePath
+
+      route =
+        index: wr
+        show: wr
+
+      # set route to path.
+      @app.resource routePath, route,
+        id: "id"
 
   getRoute: (Model) ->
     index:

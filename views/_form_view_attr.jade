@@ -1,0 +1,39 @@
+form.well.form-horizontal
+  fieldset
+    .control-group
+      label.control-label(for='attr_id') attr_id
+      .controls
+        input#attr_id(type='text', name='attr_id', style='width: 50px;')
+        a#dialog_show_find_dialog_attr.btn ...
+        span#attr_name.uneditable-input(name='attr_name')
+        span.help-inline
+    .control-group
+      label.control-label(for='caption') caption
+      .controls
+        textarea#caption(name='caption', rows='2')
+        span.help-inline
+    .control-group
+      label.control-label(for='control_type') control_type
+      .controls
+        //
+           <input type="text" id="control_type" name="control_type"> 
+        select#control_type(name='control_type')
+        span.help-inline
+    .control-group
+      label.control-label(for='max_length') max_length
+      .controls
+        input#max_length(type='text', name='max_length')
+        span.help-inline
+    .control-group
+      label.control-label(for='attr_format') attr_format
+      .controls
+        input#attr_format(type='text', name='attr_format')
+        span.help-inline
+    .control-group
+      label.control-label(for='choices_id') choices_id
+      .controls
+        input#choices_id(type='text', name='choices_id')
+        span.help-inline
+    .form-actions
+      a#dialog_regist.btn.btn-primary= __('Regist')
+      a#dialog_close.btn= __('Close')

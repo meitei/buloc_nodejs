@@ -7,6 +7,9 @@ resource = require("express-resource")
 mongoose = require("mongoose")
 MongoStore = require("connect-mongo")(express)
 i18n = require("i18n")
+# jade = require("jade")
+# glob = require("glob")
+# fs = require("fs")
 routes = require("./routes")
 
 # , user = require('./routes/user')
@@ -31,13 +34,15 @@ i18n.configure({
 # all environments
 app.set "port", process.env.PORT or 3000
 app.set "views", __dirname + "/views"
-app.set "view engine", "ejs"
+app.set "view engine", "jade"
+# app.set "view engine", "ejs"
 app.disable 'x-powered-by'
 app.use express.favicon()
 app.use express.logger("dev")
 app.use express.bodyParser()
 app.use express.methodOverride()
 app.use express.cookieParser()
+# app.use express.csrf()
 app.use express.session(
   secret: "secret of buloc."
   store: new MongoStore(
@@ -63,18 +68,20 @@ app.use express.errorHandler()  if "development" is app.get("env")
 app.get "/", routes.index
 
 
-app.resource "appsettings", require("./routes/appsettings"),
-  id: "id"
+# app.resource "appsettings", require("./routes/appsettings"),
+#   id: "id"
 
 # attributes = require("./routes/attributes")
 
-# routes
-BaseRoute = require("./routes/baseRoute")
-route = new BaseRoute(app, mongoose)
+# routes (REST)
+BaseRoute = require "./routes/baseRoute"
+route = new BaseRoute app, mongoose
+# route.precompile()
 
-route.add("attributes", "Attributes")
-route.add("views", "Views")
-route.add("entities", "Entities")
+route.add "appsettings"
+route.add "attributes", "Attributes"
+route.add "views", "Views"
+route.add "entities", "Entities"
 
 
 

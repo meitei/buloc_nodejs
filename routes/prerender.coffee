@@ -6,25 +6,25 @@ module.exports = (req, res, next) ->
   res.format
 
     '*/*': ->
-      console.log 'prerender (*)'
+      # console.log 'prerender (*)'
 
     'text/css': ->
-      console.log 'prerender (css)'
+      # console.log 'prerender (css)'
 
 
     # text: ->
     #   console.log 'prerender (text)'
 
     html: ->
-      console.log 'prerender (html)'
+      # console.log 'prerender (html)'
       res.charset = "UTF-8"
       # res.contentType 'text/html'
 
     json: ->
-      console.log 'prerender (json)'
+      # console.log 'prerender (json)'
 
     default: ->
-      console.log 'prerender (default)'
+      # console.log 'prerender (default)'
 
   # if req.accepts('html')
   #   console.log 'prerender (html)'

@@ -1,0 +1,32 @@
+form.well.form-horizontal
+  fieldset
+    .control-group
+      label.control-label(for='name') name
+      .controls
+        input#name(type='text', name='name')
+        span.help-inline
+    .control-group
+      label.control-label(for='caption') caption
+      .controls
+        textarea#caption(name='caption', rows='2')
+        span.help-inline
+    .control-group
+      label.control-label(for='data_type') data_type
+      .controls
+        select#data_type(name='data_type')
+        //
+           <input type="text" id="data_type" name="data_type"> 
+        span.help-inline
+    .control-group
+      label.control-label(for='name') length
+      .controls
+        input#length(type='text', name='length')
+        span.help-inline
+    .control-group
+      label.control-label(for='name') decimal
+      .controls
+        input#decimal(type='text', name='decimal')
+        span.help-inline
+    .form-actions
+      a#dialog_regist.btn.btn-primary= __('Regist')
+      a#dialog_close.btn= __('Close')
