@@ -58,6 +58,7 @@ define([
           if (!_.isUndefined(self.model)) {
             options.edit = function(data) {
               data.view_id = self.model.get("id");
+              return data;
             };
           }
           dialogView.openDialog(model, options);

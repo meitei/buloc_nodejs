@@ -26,6 +26,7 @@ define([
       });
     },
     registOnClick: function(e) {
+      console.debug('AbstractDialogView#registOnClick');
       e.preventDefault();
       console.debug('click regist button.');
       // console.debug(this.form);
@@ -44,6 +45,7 @@ define([
           console.debug('validate failed.');
           return;
         }
+        console.debug('model updated!.');
       } else {
         console.debug('model not exists. run insert.');
         var model = new this.collection.model(registData, {validate: false});
@@ -75,11 +77,13 @@ define([
       this.closeDialog();
     },
     closeOnClick: function(e) {
+      console.debug('AbstractDialogView#closeOnClick');
       e.preventDefault();
       console.debug('click close button.');
       this.closeDialog();
     },
     closeDialog: function() {
+      console.debug('AbstractDialogView#closeDialog');
       // clear form.
       this.form[0].reset();
       this.$('.uneditable-input').html('');
@@ -95,6 +99,7 @@ define([
       console.debug('AbstractDialogView:openDialog');
       console.debug(model);
       console.debug(options);
+      var self = this;
       // console.debug(options);
       this.model = model;
       this.options = ((_.isNull(options) || _.isUndefined(options)) ? {} : options);
@@ -110,7 +115,10 @@ define([
         show: {effect: "clip"},
         hide: {effect: "clip"},
         width: "auto",
-        modal: true
+        modal: true,
+        close: function(e) {
+          self.closeDialog();
+        }
       });
 
     }

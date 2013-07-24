@@ -33,13 +33,13 @@ class BaseRoute
       # @templates = obj
 
   add: (routePath, modelName) ->
-    console.log "add routePath: #{routePath}"
+    # console.log "add routePath: #{routePath}"
 
     if modelName
       models = require("../models/Models")
       Model = models.getModel(@db, modelName)
 
-      route = this.getRoute(Model)
+      route = this.getRestRoute(Model)
 
       @app.resource routePath, route,
         id: "id"
@@ -70,7 +70,7 @@ class BaseRoute
       @app.resource routePath, route,
         id: "id"
 
-  getRoute: (Model) ->
+  getRestRoute: (Model) ->
     index:
       json: (req, res) ->
         Model.find {}, (err, models) ->

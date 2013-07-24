@@ -5,6 +5,7 @@ exports.schema = (mongoose) ->
       default: 0
       required: true
 
+    entity_id: Number
     attr_id: Number
     caption: String
 

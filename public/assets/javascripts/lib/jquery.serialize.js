@@ -46,6 +46,7 @@
           value = _.contains(valList, $el[0].tagName) ? $el.val() : $el.html();
         }
         console.debug("value(" + $el[0].tagName + ") = > " + value);
+        console.debug("$el.val = > " + $el.val());
         // if ( lookup.length !==  undefined ) {
         if ( $.isArray(lookup) ) {
           lookup.push( value );

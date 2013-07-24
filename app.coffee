@@ -83,6 +83,8 @@ route.add "attributes", "Attributes"
 route.add "views", "Views"
 route.add "entities", "Entities"
 
+route.add "view_attrs", "ViewAttrs"
+route.add "entity_attrs", "EntityAttrs"
 
 
 http.createServer(app).listen app.get("port"), ->

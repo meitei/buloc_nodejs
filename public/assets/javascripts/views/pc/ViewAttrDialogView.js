@@ -21,7 +21,8 @@ define([
     render: function() {
       // control_type list.
       var items = {1: 'input', 2: 'select', 3: 'textarea', 4: 'checkbox', 5: 'radio', 6: 'file'};
-      create_select('select#control_type', items);
+      var helper = new Helper();
+      helper.createSelect(this, 'select#control_type', items);
     },
     showFindDialogAttrOnClick: function(e) {
       e.preventDefault();

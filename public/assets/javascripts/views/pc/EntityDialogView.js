@@ -21,6 +21,7 @@ define([
     },
     showTabOnClick: function(e) {
       console.debug('EntityDialogView#showTabOnClick');
+      // console.debug(this.model);
       e.preventDefault();
       // this.$(e.target).tab('show');
 
@@ -34,6 +35,7 @@ define([
 
       // console.debug(this.$(e.target));
       return (!_.isNull(this.model));
+      // return true;
     },
     editBeforeOpen: function() {
       console.debug('EntityDialogView#editBeforeOpen');
@@ -53,6 +55,7 @@ define([
           if (!_.isUndefined(self.model)) {
             options.edit = function(attr) {
               attr.view_id = self.model.get("id");
+              return attr;
             };
           }
           dialogView.openDialog(model, options);

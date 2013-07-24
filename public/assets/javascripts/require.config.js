@@ -35,13 +35,16 @@ require.config({
     'backbone': {
       exports: 'Backbone',
       deps: ['jquery', 'underscore', 'json2']
-    }
+    },
+    'bootstrap': ['jquery']
+
   }
 });
 
 require([
   'jquery',
   'backbone',
+  'bootstrap',
   'routers/appsettings.pc',
   'commons/helper',
 
@@ -64,7 +67,7 @@ require([
   'views/pc/EntityView',
   'views/pc/EntityDialogView'
 
-], function($, Backbone, Router, Helper,
+], function($, Backbone, Bootstrap, Router, Helper,
     ContentsView, MenuView,
     Attributes, AttributeView, AttributeDialogView,
     Views, ViewView, ViewDialogView,
