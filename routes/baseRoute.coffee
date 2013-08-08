@@ -74,7 +74,7 @@ class BaseRoute
     index:
       json: (req, res) ->
         Model.find {}, (err, models) ->
-          console.log "find models."
+          console.log "error!! can't find models." if err
           res.send JSON.stringify(models)
 
     new:
@@ -94,7 +94,7 @@ class BaseRoute
         Model.findOne
           id: req.params.id
         , (err, doc) ->
-          console.log "find model."
+          console.log "error!! can't find models." if err
           res.send JSON.stringify(doc)
 
     edit:
@@ -115,8 +115,7 @@ class BaseRoute
             Model.findOne
               id: req.params.id
             , (err, doc) ->
-              console.log "search after update."
-              console.log doc
+              console.log "error!! can't find models." if err
               res.send JSON.stringify(doc)
 
     destroy:

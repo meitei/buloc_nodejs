@@ -62,30 +62,27 @@ app.use app.router
 app.use express.static(path.join(__dirname, "public"))
 
 # development only
-app.use express.errorHandler()  if "development" is app.get("env")
+app.use express.errorHandler() if "development" is app.get("env")
 
 # default page
 app.get "/", routes.index
-
 
 # app.resource "appsettings", require("./routes/appsettings"),
 #   id: "id"
 
 # attributes = require("./routes/attributes")
 
-# routes (REST)
+# custom router
 BaseRoute = require "./routes/baseRoute"
-route = new BaseRoute app, mongoose
+route = new BaseRoute(app, mongoose)
 # route.precompile()
 
 route.add "appsettings"
 route.add "attributes", "Attributes"
 route.add "views", "Views"
 route.add "entities", "Entities"
-
 route.add "view_attrs", "ViewAttrs"
 route.add "entity_attrs", "EntityAttrs"
 
-
 http.createServer(app).listen app.get("port"), ->
-  console.log "Express server listening on port " + app.get("port")
+  console.log "Express server listening on port #{app.get("port")}"

@@ -2,8 +2,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'commons/helper',
   'views/pc/AbstractView'
-], function($, _, Backbone, AbstractView) {
+], function($, _, Backbone, Helper, AbstractView) {
   var EntityAttrView = AbstractView.extend({
     el: '#entityAttrs',
     render: function(parent) {
@@ -36,6 +37,15 @@ define([
           // reset: true,
           success: function(collection, res, options){
             console.debug("search success!!");
+
+            collection.each(function(model){
+              var helper = new Helper();
+              helper.getAttributeName(model.get('attr_id'), {
+                edit: function(attr){
+                  model.set('attr_name', attr.get('name'));
+                }
+              });
+            });
           }
         });
       }
