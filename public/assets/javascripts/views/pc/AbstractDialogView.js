@@ -27,6 +27,7 @@ define([
     },
     registOnClick: function(e) {
       console.debug('AbstractDialogView#registOnClick');
+      console.debug(e);
       e.preventDefault();
       console.debug('click regist button.');
       // console.debug(this.form);

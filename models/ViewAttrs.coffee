@@ -25,7 +25,11 @@ exports.schema = (mongoose) ->
 
 # to use update filter.
 exports.filter =
-  name: true
+  view_id: true
+  attr_id: true
+  label: true
   caption: true
-  view_type: true
-  app_id: true
+  control_type: true
+  max_length: true
+  attr_format: true
+  choices_id: true

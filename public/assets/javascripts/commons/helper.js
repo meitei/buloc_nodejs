@@ -13,6 +13,7 @@ define([
     this.attributes = new Attributes();
     this.getAttributeName = function(key, options) {
       console.debug('Helper#getAttributeName');
+      if(_.isUndefined(key)) return (void 0);
       var params = {id: key};
       var model = this.attributes.findWhere(params);
       var edit = options.edit;
