@@ -1,15 +1,15 @@
-buloc_nodejs
+このプロジェクトについて。
 ============
 試験プロジェクト。
 
 実行環境
 ------
-node.js
+node.js  
 mongodb
 
 クライアント側
 ------
-backbone.js
+backbone.js  
 require.js
 
 動かし方
