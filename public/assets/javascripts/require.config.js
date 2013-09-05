@@ -63,6 +63,10 @@ require([
   'views/pc/DisplayView',
   'views/pc/DisplayDialogView',
 
+  'collections/Logics',
+  'views/pc/LogicView',
+  'views/pc/LogicDialogView',
+
   'collections/Entities',
   'views/pc/EntityView',
   'views/pc/EntityDialogView'
@@ -72,6 +76,7 @@ require([
     Attributes, AttributeView, AttributeDialogView,
     Views, ViewView, ViewDialogView,
     Displays, DisplayView, DisplayDialogView,
+    Logics, LogicView, LogicDialogView,
     Entities, EntityView, EntityDialogView){
 
   $(function() {
@@ -79,6 +84,7 @@ require([
     $("#dialog_find").hide(); // hide a common find dialog.
     $("#dialog_view_attr").hide(); // hide child dialog.
     $("#dialog_entity_attr").hide(); // hide child dialog.
+    $("#dialog_logic").hide(); // hide child dialog.
 
     // // get url attributes.
     // var url = {};
@@ -118,6 +124,11 @@ require([
     var displayView = new DisplayView({collection: displays});
     var displayDialogView = new DisplayDialogView({collection: displays});
 
+    // def logic
+    var logics = new Logics();
+    var logicView = new LogicView({collection: logics});
+    var logicDialogView = new LogicDialogView({collection: logics});
+
     // def entity
     var entities = new Entities();
     var entityView = new EntityView({collection: entities});
@@ -136,6 +147,10 @@ require([
     router.on("route:show_display", function() {
       console.debug("called show display.");
       contentsView.showChildView(displayView, displayDialogView);
+    });
+    router.on("route:show_logic", function() {
+      console.debug("called show logic.");
+      contentsView.showChildView(logicView, logicDialogView);
     });
     router.on("route:show_entity", function() {
       console.debug("called show entity.");

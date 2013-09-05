@@ -1,12 +1,12 @@
-/* Define Entity
+/* Define Logic
 -------------------------------------------------- */
 define([
   'models/AbstractModel'
 ], function(AbstractModel){
   var Model = AbstractModel.extend({
-    urlRoot: '/entities',
-    name: 'entity',
-    constraints: {name: {required: true, maxLength: 30}}
+    urlRoot: '/logics',
+    name: 'logic',
+    constraints: {name: {required: true, maxLength: 50}}
   });
   return Model;
 });

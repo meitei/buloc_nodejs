@@ -10,6 +10,7 @@ define([
       "click #lnk_attribute": "editAttributeOnClick",
       "click #lnk_view": "editViewOnClick",
       "click #lnk_display": "editDisplayOnClick",
+      "click #lnk_logic": "editLogicOnClick",
       "click #lnk_entity": "editEntityOnClick"
     },
     initialize: function() {
@@ -36,6 +37,12 @@ define([
       e.preventDefault();
       console.info('clicked display button!');
       Backbone.history.navigate('/display', true);
+      this.setActive(e);
+    },
+    editLogicOnClick: function(e) {
+      e.preventDefault();
+      console.info('clicked logic button!');
+      Backbone.history.navigate('/logic', true);
       this.setActive(e);
     },
     editEntityOnClick: function(e) {

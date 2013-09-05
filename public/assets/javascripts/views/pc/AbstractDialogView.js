@@ -1,10 +1,11 @@
 define([
   'underscore',
   'backbone',
+  'views/pc/AbstractView',
   'jquery.deserialize',
   'jquery.serialize'
-], function(_, Backbone) {
-  var AbstractDialogView = Backbone.View.extend({
+], function(_, Backbone, AbstractView) {
+  var View = AbstractView.extend({
     events: {
       "click #dialog_regist": "registOnClick",
       "click #dialog_close": "closeOnClick"
@@ -124,5 +125,5 @@ define([
 
     }
   });
-  return AbstractDialogView;
+  return View;
 });

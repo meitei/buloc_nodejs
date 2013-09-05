@@ -3,9 +3,9 @@ define([
   'underscore',
   'backbone',
   'commons/helper',
-  'views/pc/AbstractView'
-], function($, _, Backbone, Helper, AbstractView) {
-  var ViewAttrView = AbstractView.extend({
+  'views/pc/AbstractListView'
+], function($, _, Backbone, Helper, AbstractListView) {
+  var ViewAttrView = AbstractListView.extend({
     el: '#viewAttrs',
     render: function(parent) {
       // this.parent = parent;

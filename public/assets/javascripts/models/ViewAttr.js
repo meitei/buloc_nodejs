@@ -3,9 +3,9 @@
 define([
   'models/AbstractModel'
 ], function(AbstractModel){
-  var ViewAttr = AbstractModel.extend({
+  var Model = AbstractModel.extend({
     urlRoot: '/view_attrs',
     name: 'view_attr'
   });
-  return ViewAttr;
+  return Model;
 });

@@ -3,10 +3,10 @@
 define([
   'models/AbstractModel'
 ], function(AbstractModel){
-  var EntityAttr = AbstractModel.extend({
+  var Model = AbstractModel.extend({
     urlRoot: '/entity_attrs',
     name: 'entity_attr',
     constraints: {attr_id: {required: true}}
   });
-  return EntityAttr;
+  return Model;
 });

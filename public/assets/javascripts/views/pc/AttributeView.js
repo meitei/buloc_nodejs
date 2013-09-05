@@ -1,9 +1,9 @@
 define([
   'underscore',
   'jquery.jqGrid',
-  'views/pc/AbstractView'
-], function(_, $, AbstractView) {
-  var AttributeView = AbstractView.extend({
+  'views/pc/AbstractListView'
+], function(_, $, AbstractListView) {
+  var AttributeView = AbstractListView.extend({
     el: '#attributeView',
     render: function() {
       this.constructor.__super__.render.apply(this);

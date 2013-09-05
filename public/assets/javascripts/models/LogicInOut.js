@@ -1,12 +1,12 @@
-/* Define Entity
+/* Define LogicInOut
 -------------------------------------------------- */
 define([
   'models/AbstractModel'
 ], function(AbstractModel){
   var Model = AbstractModel.extend({
-    urlRoot: '/entities',
-    name: 'entity',
-    constraints: {name: {required: true, maxLength: 30}}
+    urlRoot: '/logicInOuts',
+    name: 'logicInOut',
+    constraints: {attr_id: {required: true}}
   });
   return Model;
 });

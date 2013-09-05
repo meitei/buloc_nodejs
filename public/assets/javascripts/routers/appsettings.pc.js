@@ -8,7 +8,8 @@ define([
       "attribute": "show_attribute",
       "view": "show_view",
       "display": "show_display",
-      "entity": "show_entity"
+      "entity": "show_entity",
+      "logic": "show_logic"
     }
   });
   return Router;

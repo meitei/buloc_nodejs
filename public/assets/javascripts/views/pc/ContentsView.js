@@ -16,7 +16,7 @@ define([
       // this.list = this.$("#list");
     },
     render: function() {
-      var subViews = ['attribute','view', 'display', 'entity'];
+      var subViews = ['attribute','view', 'display', 'logic', 'entity'];
       var contents = this.$el;
       $.each(subViews, function(){
         var elm = $('<div id="' + this + 'View"></div>');

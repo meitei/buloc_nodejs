@@ -2,9 +2,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/pc/AbstractView'
-], function($, _, Backbone, AbstractView) {
-  var ViewView = AbstractView.extend({
+  'views/pc/AbstractListView'
+], function($, _, Backbone, AbstractListView) {
+  var ViewView = AbstractListView.extend({
     el: '#viewView',
     render: function() {
       this.constructor.__super__.render.apply(this);

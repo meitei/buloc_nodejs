@@ -3,10 +3,10 @@
 define([
   'models/AbstractModel'
 ], function(AbstractModel){
-  var Attribute = AbstractModel.extend({
+  var Model = AbstractModel.extend({
     urlRoot: '/attributes',
     name: 'attribute',
     constraints: {name: {required: true, maxLength: 30}}
   });
-  return Attribute;
+  return Model;
 });

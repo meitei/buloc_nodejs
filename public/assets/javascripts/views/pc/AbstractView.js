@@ -1,74 +1,15 @@
 define([
   'underscore',
-  'backbone',
-  'jst/appsettings.pc'
-], function(_, Backbone, JST) {
-  var AbstractView = Backbone.View.extend({
-    events: {
-      "click #btn_new": "openNewDialogOnClick",
-      "click #btn_upd": "openUpdDialogOnClick",
-      "click #btn_del": "deleteOnClick"
-    },
-    addMode: false,
+  'backbone'
+], function(_, Backbone) {
+  var View = Backbone.View.extend({
+    events: {},
     initialize: function() {
-      this.listenTo(this.collection, 'add', this.addOne);
-      this.listenTo(this.collection, 'change', this.changeOne);
-      this.listenTo(this.collection, 'remove', this.removeOne);
     },
     render: function(parent) {
       console.debug("AbstractView#render");
-      // console.debug(parent);
-      // console.debug(this.$el);
-      this.$el.html(JST['listView']({title: 'attribute'}));
-      this.list = this.$("#list");
       this.parent = parent;
-      this.fetch();
-      this.rendered = true;
-    },
-    fetch: function() {
-      this.collection.fetch();
-    },
-    show: function() {
-      this.$el.show();
-    },
-    hide: function() {
-      this.$el.hide();
-    },
-    isRendered: function() {
-      return this.rendered;
-    },
-    addOne: function(model) {
-      console.debug(model.attributes);
-      this.list.addRowData(model.cid, model.attributes);
-    },
-    changeOne: function(model) {
-      this.list.setRowData(model.cid, model.attributes);
-    },
-    removeOne: function(model) {
-      this.list.delRowData(model.cid);
-    },
-    openNewDialogOnClick: function() {
-      this.trigger('clicked', null);
-    },
-    openUpdDialogOnClick: function() {
-      var rowid = this.list.getGridParam("selrow");
-      if(!rowid) return false;
-      var rowData = this.list.getRowData(rowid);
-      // var model = this.collection.where({_id: rowData._id}).shift();
-      var model = this.collection.get(rowData.id);
-      this.trigger('clicked', model);
-    },
-    deleteOnClick: function() {
-      var rowid = this.list.getGridParam("selrow");
-      if(!rowid) return false;
-      var rowData = this.list.getRowData(rowid);
-      // var model = this.collection.where({_id: rowData._id}).shift();
-      var model = this.collection.get(rowData.id);
-      console.debug('remove model.');
-      console.debug(model);
-      this.collection.remove(model);
-      model.destroy();
     }
   });
-  return AbstractView;
+  return View;
 });

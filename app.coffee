@@ -81,6 +81,8 @@ route.add "appsettings"
 route.add "attributes", "Attributes"
 route.add "views", "Views"
 route.add "entities", "Entities"
+route.add "logics", "Logics"
+route.add "logicInOuts", "LogicInOuts"
 route.add "view_attrs", "ViewAttrs"
 route.add "entity_attrs", "EntityAttrs"
 

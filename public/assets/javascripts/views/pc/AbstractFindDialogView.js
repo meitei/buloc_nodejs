@@ -1,9 +1,10 @@
 define([
   'jquery',
   'underscore',
-  'backbone'
-], function($, _, Backbone) {
-  var AbstractFindDialogView = Backbone.View.extend({
+  'backbone',
+  'views/pc/AbstractView'
+], function($, _, Backbone, AbstractView) {
+  var View = AbstractView.extend({
     events: {
       "click #dialog_find": "findOnClick",
       "click #dialog_fix": "fixOnClick",
@@ -129,5 +130,5 @@ define([
 
     }
   });
-  return AbstractFindDialogView;
+  return View;
 });

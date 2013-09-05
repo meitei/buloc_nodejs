@@ -84,6 +84,21 @@ head
             #entityHistories
       #dialog_entity_attr(title='entity attrs dialog')
         include _form_entity_attr
+      #dialog_logic(title='logic dialog')
+        ul.nav.nav-tabs
+          li.active
+            a(href='#logic_basic', data-toggle='tab') 基本
+          li
+            a(href='#logic_calls', data-toggle='tab') 呼出ロジック一覧
+          li
+            a(href='#logic_history', data-toggle='tab') 変更履歴
+        .tab-content
+          #logic_basic.tab-pane.fade.active.in
+            include _form_logic
+          #logic_calls.tab-pane.fade
+            #logicCalls
+          #logic_history.tab-pane.fade
+            #logicHistories
       #dialog_find
         #cond
           form.well.form-horizontal

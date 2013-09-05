@@ -4,17 +4,17 @@ define([
   'backbone',
   'views/pc/AbstractListView'
 ], function($, _, Backbone, AbstractListView) {
-  var EntityView = AbstractListView.extend({
-    el: '#entityView',
+  var LogicView = AbstractListView.extend({
+    el: '#logicView',
     render: function() {
       this.constructor.__super__.render.apply(this);
-      console.debug("EntityView#render");
+      console.debug("LogicView#render");
       var dateFormatOps = {srcformat: 'Y-m-dTH:i:s',newformat: 'Y/m/d h:i:s'};
       this.list.jqGrid({
         data: [],
         width: 650,
         datatype: "local",
-        colNames:['コード', 'エンティティ名', '作成日', '更新日'],
+        colNames:['コード', 'ロジック名', '作成日', '更新日'],
         colModel:[
           {name:'id'},
           {name:'name'},
@@ -22,11 +22,11 @@ define([
           {name:'updated_at', formatter:'date', formatoptions: dateFormatOps}
         ],
         multiselect: false,
-        caption: 'エンティティ一覧',
+        caption: 'ロジック一覧',
         scrollrows: true
       });
 
     }
   });
-  return EntityView;
+  return LogicView;
 });
