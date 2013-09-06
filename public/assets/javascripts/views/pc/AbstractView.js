@@ -4,6 +4,7 @@ define([
 ], function(_, Backbone) {
   var View = Backbone.View.extend({
     events: {},
+    title: 'no name',
     initialize: function() {
     },
     render: function(parent) {

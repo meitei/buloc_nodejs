@@ -6,6 +6,7 @@ define([
 ], function($, _, Backbone, AbstractListView) {
   var View = AbstractListView.extend({
     el: '#logicInOutView',
+    editable: true,
     render: function() {
       this.constructor.__super__.render.apply(this);
       console.debug("LogicInOutView#render");
@@ -18,14 +19,28 @@ define([
         colModel:[
           {name:'id'},
           {name:'seq'},
-          {name:'inout'},
-          {name:'attr_name'},
+          {
+            name:'inout',
+            editable:true,
+            width: 100,
+            edittype:'select',
+            editoptions:{value:'1:IN;2:OUT'}
+          },
+          {name:'attr_name', editable:true},
           {name:'created_at', formatter:'date', formatoptions: dateFormatOps},
           {name:'updated_at', formatter:'date', formatoptions: dateFormatOps}
         ],
         multiselect: false,
         caption: '入出力一覧',
-        scrollrows: true
+        scrollrows: true,
+        cellEdit: true,
+        cellsubmit: 'clientArray',
+        grouping: true,
+        groupingView : { 
+          groupField : ['inout'],
+          groupSummary : [true]
+        }
+
       });
 
     }

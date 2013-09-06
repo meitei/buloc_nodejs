@@ -6,6 +6,7 @@ define([
 ], function($, _, Backbone, AbstractListView) {
   var EntityView = AbstractListView.extend({
     el: '#entityView',
+    title: 'entity',
     render: function() {
       this.constructor.__super__.render.apply(this);
       console.debug("EntityView#render");

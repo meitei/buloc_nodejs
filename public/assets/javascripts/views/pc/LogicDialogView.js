@@ -7,7 +7,7 @@ define([
   'views/pc/LogicInOutView'
 ], function($, _, Helper, AbstractDialogView, LogicInOuts, LogicInOutView) {
   var LogicDialogView = AbstractDialogView.extend({
-    el: '#dialog_logic_inout',
+    el: '#dialog_logic',
     children: [
       {
         event_id: 'render',

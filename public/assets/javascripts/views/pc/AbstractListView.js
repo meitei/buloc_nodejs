@@ -6,11 +6,12 @@ define([
 ], function(_, Backbone, AbstractView, JST) {
   var View = AbstractView.extend({
     events: {
-      "click #btn_new": "openNewDialogOnClick",
-      "click #btn_upd": "openUpdDialogOnClick",
+      "click #btn_new": "newBtnOnClick",
+      "click #btn_upd": "updBtnOnClick",
       "click #btn_del": "deleteOnClick"
     },
     addMode: false,
+    editable: false,
     initialize: function() {
       this.listenTo(this.collection, 'add', this.addOne);
       this.listenTo(this.collection, 'change', this.changeOne);
@@ -20,7 +21,7 @@ define([
       console.debug("AbstractView#render");
       // console.debug(parent);
       // console.debug(this.$el);
-      this.$el.html(JST['listView']({title: 'attribute'}));
+      this.$el.html(JST['listView']({title: this.title}));
       this.list = this.$("#list");
       this.parent = parent;
       this.fetch();
@@ -48,10 +49,14 @@ define([
     removeOne: function(model) {
       this.list.delRowData(model.cid);
     },
-    openNewDialogOnClick: function() {
-      this.trigger('clicked', null);
+    newBtnOnClick: function() {
+      if (this.editable) {
+        this.list.addRowData(undefined, {});
+      } else {
+        this.trigger('clicked', null);
+      }
     },
-    openUpdDialogOnClick: function() {
+    updBtnOnClick: function() {
       var rowid = this.list.getGridParam("selrow");
       if(!rowid) return false;
       var rowData = this.list.getRowData(rowid);

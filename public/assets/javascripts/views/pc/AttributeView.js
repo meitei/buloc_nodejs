@@ -5,6 +5,7 @@ define([
 ], function(_, $, AbstractListView) {
   var AttributeView = AbstractListView.extend({
     el: '#attributeView',
+    title: 'attribute',
     render: function() {
       this.constructor.__super__.render.apply(this);
       console.debug("AttributeView#render");

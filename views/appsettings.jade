@@ -4,6 +4,7 @@ head
     title Buloc
     link(href='/assets/stylesheets/jquery-ui-1.10.3.custom.css', media='all', rel='stylesheet')
     link(href='/assets/stylesheets/custom-theme/jquery-ui-1.10.3.custom.css', media='all', rel='stylesheet')
+    //- link(href='/assets/stylesheets/pepper-grinder/jquery-ui-1.10.3.custom.css', media='all', rel='stylesheet')
     link(href='/assets/stylesheets/ui.jqgrid.css', media='all', rel='stylesheet')
     link(href='/assets/stylesheets/bootstrap.css', media='all', rel='stylesheet')
     link(href='/assets/stylesheets/base.css', media='all', rel='stylesheet')
@@ -89,12 +90,16 @@ head
           li.active
             a(href='#logic_basic', data-toggle='tab') 基本
           li
+            a(href='#logic_inout', data-toggle='tab') IN/OUT
+          li
             a(href='#logic_calls', data-toggle='tab') 呼出ロジック一覧
           li
             a(href='#logic_history', data-toggle='tab') 変更履歴
         .tab-content
           #logic_basic.tab-pane.fade.active.in
             include _form_logic
+          #logic_inout.tab-pane.fade
+            #logicInOutView
           #logic_calls.tab-pane.fade
             #logicCalls
           #logic_history.tab-pane.fade

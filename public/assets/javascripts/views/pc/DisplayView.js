@@ -6,6 +6,7 @@ define([
 ], function($, _, Backbone, AbstractListView) {
   var DisplayView = AbstractListView.extend({
     el: '#displayView',
+    title: 'display',
     render: function() {
       this.constructor.__super__.render.apply(this);
       console.debug("DisplayView#render");
