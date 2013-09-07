@@ -15,7 +15,12 @@ define([
       this.constructor.__super__.render.apply(this, arguments);
       // console.debug("ViewAttrView#render");
       console.debug(parent);
-      var dateFormatOps = {srcformat: 'Y-m-dTH:i:s',newformat: 'Y/m/d h:i:s'};
+      // var dateFormatOps = {srcformat: 'Y-m-dTH:i:s',newformat: 'Y/m/d h:i:s'};
+      var epochDateFormatter = function (cellval, opts) {
+          var date = new Date(cellval);
+          opts = $.extend({}, $.jgrid.formatter.date, opts);
+          return $.jgrid.parseDate("", date, 'Y/m/d H:i:s', opts);
+      };
       this.list.jqGrid({
         data: [],
         width: 650,
@@ -25,8 +30,8 @@ define([
           {name:'id'},
           {name:'attr_name'},
           {name:'control_type'},
-          {name:'created_at', formatter:'date', formatoptions: dateFormatOps},
-          {name:'updated_at', formatter:'date', formatoptions: dateFormatOps}
+          {name:'created_at', formatter:epochDateFormatter},
+          {name:'updated_at', formatter:epochDateFormatter}
         ],
         multiselect: false,
         caption: 'ビュー内の属性一覧',

@@ -2,7 +2,8 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/pc/AbstractListView'
+  'views/pc/AbstractListView',
+  'jquery.jqGrid'
 ], function($, _, Backbone, AbstractListView) {
   var LogicView = AbstractListView.extend({
     el: '#logicView',
@@ -10,7 +11,11 @@ define([
     render: function() {
       this.constructor.__super__.render.apply(this);
       console.debug("LogicView#render");
-      var dateFormatOps = {srcformat: 'Y-m-dTH:i:s',newformat: 'Y/m/d h:i:s'};
+      var epochDateFormatter = function (cellval, opts) {
+          var date = new Date(cellval);
+          opts = $.extend({}, $.jgrid.formatter.date, opts);
+          return $.jgrid.parseDate("", date, 'Y/m/d H:i:s', opts);
+      };
       this.list.jqGrid({
         data: [],
         width: 650,
@@ -19,8 +24,8 @@ define([
         colModel:[
           {name:'id'},
           {name:'name'},
-          {name:'created_at', formatter:'date', formatoptions: dateFormatOps},
-          {name:'updated_at', formatter:'date', formatoptions: dateFormatOps}
+          {name:'created_at', formatter:epochDateFormatter},
+          {name:'updated_at', formatter:epochDateFormatter}
         ],
         multiselect: false,
         caption: 'ロジック一覧',

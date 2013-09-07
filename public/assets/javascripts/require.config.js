@@ -4,6 +4,7 @@ require.config({
   paths: {
     'jquery': 'lib/jquery-1.10.2',
     'jquery.ui': "lib/jquery-ui-1.10.3.custom",
+    'grid.locale-ja': "lib/i18n/grid.locale-ja",
     'jquery.jqGrid': "lib/jquery.jqGrid", 
     'jquery.deserialize': "lib/jquery.deserialize", 
     'jquery.serialize': "lib/jquery.serialize", 
@@ -21,7 +22,7 @@ require.config({
       deps: ['jquery']
     },
     'jquery.jqGrid': {
-      deps: ['jquery', 'jquery.ui']
+      deps: ['jquery', 'jquery.ui', 'grid.locale-ja']
     },
     'jquery.deserialize': {
       deps: ['jquery']

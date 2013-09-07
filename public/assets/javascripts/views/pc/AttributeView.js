@@ -1,15 +1,20 @@
 define([
+  'jquery',
   'underscore',
-  'jquery.jqGrid',
   'views/pc/AbstractListView'
-], function(_, $, AbstractListView) {
+], function($, _, AbstractListView) {
   var AttributeView = AbstractListView.extend({
     el: '#attributeView',
     title: 'attribute',
     render: function() {
       this.constructor.__super__.render.apply(this);
       console.debug("AttributeView#render");
-      var dateFormatOps = {srcformat: 'Y-m-dTH:i:s',newformat: 'Y/m/d h:i:s'};
+      // var dateFormatOps = {srcformat: 'Y-m-dTH:i:s',newformat: 'Y/m/d h:i:s'};
+      var epochDateFormatter = function (cellval, opts) {
+          var date = new Date(cellval);
+          opts = $.extend({}, $.jgrid.formatter.date, opts);
+          return $.jgrid.parseDate("", date, 'Y/m/d H:i:s', opts);
+      };
       this.list.jqGrid({
         data: [],
         width: 650,
@@ -19,8 +24,8 @@ define([
           {name:'id'},
           {name:'name'},
           {name:'caption'},
-          {name:'created_at', formatter:'date', formatoptions: dateFormatOps},
-          {name:'updated_at', formatter:'date', formatoptions: dateFormatOps}
+          {name:'created_at', formatter:epochDateFormatter},
+          {name:'updated_at', formatter:epochDateFormatter}
         ],
         multiselect: false,
         caption: '属性一覧',
