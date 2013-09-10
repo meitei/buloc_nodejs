@@ -2,8 +2,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'commons/helper',
   'views/pc/AbstractListView'
-], function($, _, Backbone, AbstractListView) {
+], function($, _, Backbone, Helper, AbstractListView) {
   var View = AbstractListView.extend({
     el: '#logicInOutView',
     editable: true,
@@ -12,11 +13,11 @@ define([
       console.debug("LogicInOutView#render");
       // var dateFormatOps = {srcformat: 'Y-m-dTH:i:s',newformat: 'Y/m/d h:i:s'};
       // var dateFormatOps = {srcformat: 'ISO8601Long',newformat: 'Y/m/d h:i:s'};
-      var epochDateFormatter = function (cellval, opts) {
-          var date = new Date(cellval);
-          opts = $.extend({}, $.jgrid.formatter.date, opts);
-          return $.jgrid.parseDate("", date, 'Y/m/d H:i:s', opts);
-      };
+
+      // var epochDateFormatter = function (cellval, opts) {
+      // };
+      // var helper = new Helper();
+      var dateFormatter = this.helper.format.epochDateFormatter($);
 
       function autocomplete_element(value, options) {
           // create input element
@@ -79,8 +80,8 @@ define([
               'custom_value': autocomplete_value
             }
           },
-          {name:'created_at', formatter:epochDateFormatter},
-          {name:'updated_at', formatter:epochDateFormatter}
+          {name:'created_at', formatter:dateFormatter},
+          {name:'updated_at', formatter:dateFormatter}
         ],
         multiselect: false,
         caption: '入出力一覧',

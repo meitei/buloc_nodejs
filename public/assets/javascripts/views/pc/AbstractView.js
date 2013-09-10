@@ -1,7 +1,8 @@
 define([
   'underscore',
-  'backbone'
-], function(_, Backbone) {
+  'backbone',
+  'commons/helper'
+], function(_, Backbone, Helper) {
   var View = Backbone.View.extend({
     events: {},
     title: 'no name',
@@ -10,7 +11,8 @@ define([
     render: function(parent) {
       console.debug("AbstractView#render");
       this.parent = parent;
-    }
+    },
+    helper: new Helper()
   });
   return View;
 });

@@ -11,11 +11,12 @@ define([
       console.debug('EntityAttrView#render');
       this.constructor.__super__.render.apply(this, arguments);
       // var dateFormatOps = {srcformat: 'Y-m-dTH:i:s',newformat: 'Y/m/d h:i:s'};
-      var epochDateFormatter = function (cellval, opts) {
-          var date = new Date(cellval);
-          opts = $.extend({}, $.jgrid.formatter.date, opts);
-          return $.jgrid.parseDate("", date, 'Y/m/d H:i:s', opts);
-      };
+      // var epochDateFormatter = function (cellval, opts) {
+      //     var date = new Date(cellval);
+      //     opts = $.extend({}, $.jgrid.formatter.date, opts);
+      //     return $.jgrid.parseDate("", date, 'Y/m/d H:i:s', opts);
+      // };
+      var dateFormatter = this.helper.format.epochDateFormatter($);
 
       this.list.jqGrid({
         data: [],
@@ -25,8 +26,8 @@ define([
         colModel:[
           {name:'id'},
           {name:'attr_name'},
-          {name:'created_at', formatter:epochDateFormatter},
-          {name:'updated_at', formatter:epochDateFormatter}
+          {name:'created_at', formatter:dateFormatter},
+          {name:'updated_at', formatter:dateFormatter}
         ],
         multiselect: false,
         caption: 'エンティティ内の属性一覧',

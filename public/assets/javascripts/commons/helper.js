@@ -62,6 +62,17 @@ define([
       return this._url;
     };
 
+    this.format = {};
+
+    this.format.epochDateFormatter = function(jq) {
+      return function (cellval, opts) {
+        if (!cellval) return '';
+        var date = new Date(cellval);
+        opts = jq.extend({}, jq.jgrid.formatter.date, opts);
+        return jq.jgrid.parseDate("", date, 'Y/m/d H:i:s', opts);
+      };
+    };
+
   }
   return Helper;
 });
