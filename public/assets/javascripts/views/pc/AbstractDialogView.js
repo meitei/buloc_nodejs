@@ -31,6 +31,7 @@ define([
       console.debug(e);
       e.preventDefault();
       console.debug('click regist button.');
+      // console.debug('view.cid =>' + this.cid);
       // console.debug(this.form);
       var formObj = this.form.serializeForm();
       console.debug('form data => ');
@@ -94,9 +95,13 @@ define([
       this.$('span.help-inline').html('');
       // clear instance fields.
       this.model = this.options = void 0;
+      // clear view and all events.
+      this.cleanUp();
       //close window.
       (this.$el).dialog('close');
     },
+
+    // ** Not recommended ** //
     openDialog: function(model, options) {
       console.debug('AbstractDialogView:openDialog');
       console.debug(model);
@@ -123,7 +128,30 @@ define([
         }
       });
 
+    },
+
+    show: function() {
+      console.debug('AbstractDialogView:show');
+      var self = this;
+
+      if (this.model) {
+        // show view by model data.
+        this.form.deserialize(this.model);
+      }
+      if(!_.isUndefined(this.editBeforeOpen)) this.editBeforeOpen();
+      (this.$el).dialog({
+        show: {effect: "clip"},
+        hide: {effect: "clip"},
+        width: "auto",
+        modal: true,
+        close: function(e) {
+          self.closeDialog();
+        }
+      });
+
     }
+
+
   });
   return View;
 });

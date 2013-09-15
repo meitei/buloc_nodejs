@@ -17,14 +17,16 @@ define([
       this.listenTo(this.collection, 'change', this.changeOne);
       this.listenTo(this.collection, 'remove', this.removeOne);
     },
-    render: function(parent) {
+    render: function() {
       console.debug("AbstractView#render");
       // console.debug(parent);
       // console.debug(this.$el);
       this.$el.html(JST['listView']({title: this.title}));
       this.list = this.$("#list");
-      this.parent = parent;
-      this.fetch();
+      // this.parent = parent;
+
+      // paging is pending now.
+      this.fetch({skip:0, limit:10});
       this.rendered = true;
     },
     fetch: function() {
@@ -53,7 +55,7 @@ define([
       if (this.editable) {
         this.list.addRowData(undefined, {});
       } else {
-        this.trigger('clicked', null);
+        this.trigger(this.eventIds.newBtn, this, null);
       }
     },
     updBtnOnClick: function() {
@@ -62,7 +64,7 @@ define([
       var rowData = this.list.getRowData(rowid);
       // var model = this.collection.where({_id: rowData._id}).shift();
       var model = this.collection.get(rowData.id);
-      this.trigger('clicked', model);
+      this.trigger(this.eventIds.updBtn, this, {model: model});
     },
     deleteOnClick: function() {
       var rowid = this.list.getGridParam("selrow");

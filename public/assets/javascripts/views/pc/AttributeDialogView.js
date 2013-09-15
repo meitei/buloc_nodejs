@@ -4,7 +4,7 @@ define([
   'views/pc/AbstractDialogView'
 ], function(_, Helper, AbstractDialogView) {
   var AttributeDialogView = AbstractDialogView.extend({
-    el: '#dialog_attribute',
+    // el: '#dialog_attribute',
     render: function() {
       console.debug('AttributeDialogView#render');
       // setting of choices.

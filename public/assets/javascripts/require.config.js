@@ -42,19 +42,44 @@ require.config({
   }
 });
 
-require([
+var viewParts = [
+  {
+    id: 'attribute',
+    el: '#attributeView',
+    view: 'AttributeView',
+    collection: 'Attributes',
+    isRoute: true,
+    hasElement: false,
+    children: ['attributeDialog'],
+    eventIds: {
+      'newBtn': 'show:attributeDialog',
+      'updBtn': 'show:attributeDialog'
+    },
+    necessary: ['app_id']
+  },
+  {
+    id: 'attributeDialog',
+    el: '#dialog_attribute',
+    view: 'AttributeDialogView',
+    // collection: 'Attributes',
+    isRoute: false,
+    hasElement: false,
+    necessary: ['app_id'],
+    edit: ['app_id']
+  }
+];
+
+var modules = [
   'jquery',
   'backbone',
   'bootstrap',
   'routers/appsettings.pc',
   'commons/helper',
+  'app',
 
   'views/pc/ContentsView',
   'views/pc/MenuView',
 
-  'collections/Attributes',
-  'views/pc/AttributeView',
-  'views/pc/AttributeDialogView',
 
   'collections/Views',
   'views/pc/ViewView',
@@ -72,9 +97,29 @@ require([
   'views/pc/EntityView',
   'views/pc/EntityDialogView'
 
-], function($, Backbone, Bootstrap, Router, Helper,
+  // 'collections/Attributes',
+  // 'views/pc/AttributeView',
+  // 'views/pc/AttributeDialogView'
+
+];
+
+// require(['underscore'], function(_) {
+//   _.each(viewParts, function(vp){
+//     console.debug('追加したがな。');
+//     modules.push('views/pc/' + vp.view);
+//     modules.push('collections/' + vp.collection);
+//   });
+// });
+// var addModules = [];
+viewParts.forEach(function(vp) {
+  modules.push('views/pc/' + vp.view);
+  if (vp.collection) modules.push('collections/' + vp.collection);
+});
+
+require(modules,
+  function($, Backbone, Bootstrap, Router, Helper, app,
     ContentsView, MenuView,
-    Attributes, AttributeView, AttributeDialogView,
+    // Attributes, AttributeView, AttributeDialogView,
     Views, ViewView, ViewDialogView,
     Displays, DisplayView, DisplayDialogView,
     Logics, LogicView, LogicDialogView,
@@ -105,13 +150,16 @@ require([
     var helper = new Helper();
     helper.getUrl();
 
+    // initialize app
+    app.init(viewParts);
+
     var contentsView = new ContentsView();
     contentsView.render();
 
     // def attributes
-    var attributes = new Attributes();
-    var attributeView = new AttributeView({collection: attributes});
-    var attributeDialogView = new AttributeDialogView({collection: attributes});
+    // var attributes = new Attributes();
+    // var attributeView = new AttributeView({collection: attributes});
+    // var attributeDialogView = new AttributeDialogView({collection: attributes});
 
     // console.debug(AttributeDialogView.prototype);
 
@@ -136,11 +184,14 @@ require([
     var entityDialogView = new EntityDialogView({collection: entities});
 
     // routes settings
-    var router = new Router();
-    router.on("route:show_attribute", function() {
-      console.debug("called show attribute.");
-      contentsView.showChildView(attributeView, attributeDialogView);
-    });
+    // var router = new Router();
+    var router = app.router;
+
+    // router.on("route:show_attribute", function() {
+    //   console.debug("called show attribute.");
+    //   // contentsView.showChildView(attributeView, attributeDialogView);
+    //   app.event.trigger('show:attribute');
+    // });
     router.on("route:show_view", function() {
       console.debug("called show view.");
       contentsView.showChildView(viewView, viewDialogView);

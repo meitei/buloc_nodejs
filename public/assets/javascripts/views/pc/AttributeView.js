@@ -4,7 +4,7 @@ define([
   'views/pc/AbstractListView'
 ], function($, _, AbstractListView) {
   var AttributeView = AbstractListView.extend({
-    el: '#attributeView',
+    // el: '#attributeView',
     title: 'attribute',
     render: function() {
       this.constructor.__super__.render.apply(this);
@@ -16,7 +16,6 @@ define([
       //     return $.jgrid.parseDate("", date, 'Y/m/d H:i:s', opts);
       // };
       var dateFormatter = this.helper.format.epochDateFormatter($);
-
       this.list.jqGrid({
         data: [],
         width: 650,
