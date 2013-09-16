@@ -66,7 +66,60 @@ var viewParts = [
     hasElement: false,
     necessary: ['app_id'],
     edit: ['app_id']
+  },
+
+  {
+    id: 'entity',
+    el: '#entityView',
+    view: 'EntityView',
+    collection: 'Entities',
+    isRoute: true,
+    hasElement: false,
+    children: ['entityDialog'],
+    eventIds: {
+      'newBtn': 'show:entityDialog',
+      'updBtn': 'show:entityDialog'
+    },
+    necessary: ['app_id']
+  },
+  {
+    id: 'entityDialog',
+    el: '#dialog_entity',
+    view: 'EntityDialogView',
+    isRoute: false,
+    hasElement: false,
+    subView: ['entityAttr'],
+    children: ['entityAttr'],
+    necessary: ['app_id'],
+    edit: ['app_id']
+  },
+
+  {
+    id: 'entityAttr',
+    el: '#entityAttrs',
+    view: 'EntityAttrView',
+    collection: 'EntityAttrs',
+    isRoute: false,
+    hasElement: false,
+    children: ['entityAttrDialog'],
+    eventIds: {
+      'newBtn': 'show:entityAttrDialog',
+      'updBtn': 'show:entityAttrDialog'
+    },
+    necessary: ['id']
+  },
+  {
+    id: 'entityAttrDialog',
+    el: '#dialog_entity_attr',
+    view: 'EntityAttrDialogView',
+    isRoute: false,
+    hasElement: false,
+    necessary: ['id'],
+    // edit: [{id: 'entity_id'}]
+    edit: {id: 'entity_id'}
   }
+
+
 ];
 
 var modules = [
@@ -93,9 +146,9 @@ var modules = [
   'views/pc/LogicView',
   'views/pc/LogicDialogView',
 
-  'collections/Entities',
-  'views/pc/EntityView',
-  'views/pc/EntityDialogView'
+  // 'collections/Entities',
+  // 'views/pc/EntityView',
+  // 'views/pc/EntityDialogView'
 
   // 'collections/Attributes',
   // 'views/pc/AttributeView',
@@ -122,8 +175,9 @@ require(modules,
     // Attributes, AttributeView, AttributeDialogView,
     Views, ViewView, ViewDialogView,
     Displays, DisplayView, DisplayDialogView,
-    Logics, LogicView, LogicDialogView,
-    Entities, EntityView, EntityDialogView){
+    Logics, LogicView, LogicDialogView
+    // Entities, EntityView, EntityDialogView
+    ){
 
   $(function() {
     // $("#menu").menu();
@@ -179,9 +233,9 @@ require(modules,
     var logicDialogView = new LogicDialogView({collection: logics});
 
     // def entity
-    var entities = new Entities();
-    var entityView = new EntityView({collection: entities});
-    var entityDialogView = new EntityDialogView({collection: entities});
+    // var entities = new Entities();
+    // var entityView = new EntityView({collection: entities});
+    // var entityDialogView = new EntityDialogView({collection: entities});
 
     // routes settings
     // var router = new Router();
@@ -204,10 +258,10 @@ require(modules,
       console.debug("called show logic.");
       contentsView.showChildView(logicView, logicDialogView);
     });
-    router.on("route:show_entity", function() {
-      console.debug("called show entity.");
-      contentsView.showChildView(entityView, entityDialogView);
-    });
+    // router.on("route:show_entity", function() {
+    //   console.debug("called show entity.");
+    //   contentsView.showChildView(entityView, entityDialogView);
+    // });
 
     // var menuView = new MenuView();
     var menuView = new MenuView();

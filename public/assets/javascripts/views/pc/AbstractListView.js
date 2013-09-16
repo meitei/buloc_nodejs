@@ -59,11 +59,13 @@ define([
       }
     },
     updBtnOnClick: function() {
+      console.debug('AbstractListView#updBtnOnClick');
       var rowid = this.list.getGridParam("selrow");
       if(!rowid) return false;
       var rowData = this.list.getRowData(rowid);
       // var model = this.collection.where({_id: rowData._id}).shift();
       var model = this.collection.get(rowData.id);
+      console.debug(model);
       this.trigger(this.eventIds.updBtn, this, {model: model});
     },
     deleteOnClick: function() {

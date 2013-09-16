@@ -2,13 +2,14 @@ define([
   'jquery',
   'underscore',
   'commons/helper',
-  'views/pc/AbstractDialogView',
-  'collections/EntityAttrs',
-  'views/pc/EntityAttrView',
-  'views/pc/EntityAttrDialogView'
-], function($, _, Helper, AbstractDialogView, EntityAttrs, EntityAttrView, EntityAttrDialogView) {
+  'views/pc/AbstractDialogView'
+  // 'collections/EntityAttrs',
+  // 'views/pc/EntityAttrView',
+  // 'views/pc/EntityAttrDialogView'
+// ], function($, _, Helper, AbstractDialogView, EntityAttrs, EntityAttrView, EntityAttrDialogView) {
+], function($, _, Helper, AbstractDialogView) {
   var EntityDialogView = AbstractDialogView.extend({
-    el: '#dialog_entity',
+    // el: '#dialog_entity',
     events: function() {
       // extend events.
       var addEvents = {
@@ -39,35 +40,36 @@ define([
     },
     editBeforeOpen: function() {
       console.debug('EntityDialogView#editBeforeOpen');
-      var entityAttrs = new EntityAttrs();
-      var entityAttrView = new EntityAttrView({collection: entityAttrs});
-      var entityAttrDialogView = new EntityAttrDialogView({collection: entityAttrs});
-      this.showChildView(entityAttrView, entityAttrDialogView);
+      // var entityAttrs = new EntityAttrs();
+      // var entityAttrView = new EntityAttrView({collection: entityAttrs});
+      // var entityAttrDialogView = new EntityAttrDialogView({collection: entityAttrs});
+      // this.showChildView(entityAttrView, entityAttrDialogView);
     },
-    showChildView: function(view, dialogView) {
-      console.debug('EntityDialogView#showChildView');
-      if (!view.isRendered()) {
-        var self = this;
-        view.render(self);
-        view.on('clicked', function(model){
-          dialogView.render();
-          var options = {};
-          if (!_.isUndefined(self.model)) {
-            options.edit = function(attr) {
-              attr.view_id = self.model.get("id");
-              return attr;
-            };
-          }
-          dialogView.openDialog(model, options);
-        });
-      }
-      view.show();
-    },
-    openDialog: function(model) {
-      console.debug('EntityDialogView#openDialog');
-      console.debug(model);
+    // showChildView: function(view, dialogView) {
+    //   console.debug('EntityDialogView#showChildView');
+    //   if (!view.isRendered()) {
+    //     var self = this;
+    //     view.render(self);
+    //     view.on('clicked', function(model){
+    //       dialogView.render();
+    //       var options = {};
+    //       if (!_.isUndefined(self.model)) {
+    //         options.edit = function(attr) {
+    //           attr.view_id = self.model.get("id");
+    //           return attr;
+    //         };
+    //       }
+    //       dialogView.openDialog(model, options);
+    //     });
+    //   }
+    //   view.show();
+    // },
+    // openDialog: function(model) {
+    show: function() {
+      console.debug('EntityDialogView#show');
+      // console.debug(model);
       // call super method.
-      this.constructor.__super__.openDialog.apply(this, arguments);
+      this.constructor.__super__.show.apply(this, arguments);
       // set tabs enabled.
       var attrTab = this.$('#entity_attr');
       if(this.model) {

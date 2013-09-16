@@ -54,6 +54,7 @@ define([
         console.log('isroute '+vp.id);
         self.router.on("route:show_" + vp.id, function() {
           console.log('fire route:show_' + vp.id);
+          if(self.activeView) self.activeView.$el.hide();
           self.event.trigger('show:' + vp.id);
         });
       }
@@ -61,34 +62,22 @@ define([
       // these are settings of show view.
       self.event.on('show:' + vp.id, function(obj, opt) {
         console.debug('fire event -> show:' + vp.id);
+        console.debug('option =>');
+        console.debug(opt);
         var view = self.createView(obj, vp.id);
-        console.debug('create view cid=' + view.cid);
+        // console.debug('create view cid=' + view.cid);
+        if (!view) return;
+        if (vp.isRoute) self.activeView = view;
         view.parent = obj;
         view.eventIds = vp.eventIds;
         view.render();
 
         if (!_.isEmpty(vp.children)) {
           _.each(vp.children, function(child){
-
             // define show event of view.
             self.event.listenTo(view, 'show:' + child, function(obj, opt) {
               self.event.trigger('show:' + child, obj, opt);
-
-              // view.on('show:' + child, function(model){
-              // dialogView.render(view);
-
-              // var parentKeyId = view.collection.parentKeyId;
-              // if (parentKeyId) {
-              //   dialogView.openDialog(model, {edit: function(data) {
-              //     data[parentKeyId] = parentId;
-              //     return data;
-              //   }});
-              // } else {
-              //   dialogView.openDialog(model);
-              // }
-
             });
-
           });
         }
 
@@ -99,21 +88,34 @@ define([
             opt.necessary.app_id = helper.getUrl().id;
           } else {
             if (obj && obj.parent && obj.parent.model) {
-              var model = obj.parent.model;
-              if (_.has(model.attribute, nc)) {
-                opt.necessary[nc] = model.attribute[nc];
+              // var model = obj.parent.model;
+              var model = obj.model;
+              // console.debug('necessary model =>');
+              // console.debug(model);
+              if (_.has(model.attributes, nc)) {
+                opt.necessary[nc] = model.attributes[nc];
+              } else {
+                console.warning(vp.id + ' -> necessary is defined, but parent dont have it. (' + nc + ')');
               }
             }
           }
         });
         if (!_.isUndefined(vp.edit)) {
           var editItems = {};
-          _.each(vp.edit, function(id) {
-            if (_.has(opt.necessary, id)) {
-              editItems[id] = opt.necessary[id];
+          _.each(vp.edit, function(v, k) {
+            var kf,kt;
+            if (_.isArray(vp.edit)) {
+              kf = kt = v;
+            } else {
+              kf = k;
+              kt = v;
+            }
+            if (_.has(opt.necessary, kf)) {
+              editItems[kt] = opt.necessary[kf];
             } else {
               console.error('create edit object, but value is not exists.');
             }
+
           });
           if (!_.isEmpty(editItems)) {
             opt.edit = function(data) {
@@ -128,7 +130,7 @@ define([
         if (opt.model) {
           view.model = opt.model;
           // ** FIXME **
-          self.event.listenTo(view.model, 'error', view.editError);          
+          self.event.listenTo(view.model, 'error', view.editError);
         }
         // extend clean function.
         view.cleanUp = function() {
@@ -139,6 +141,15 @@ define([
 
         view.show();
         // view.open(opt);
+
+        // When sub views has exist, render sub views.
+        if (vp.subView) {
+          _.each(vp.subView, function(v) {
+            view.trigger('show:' + v, view, {model: opt.model});
+          });
+        }
+
+
       });
 
     });

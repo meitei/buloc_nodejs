@@ -7,7 +7,7 @@ define([
   'views/pc/AttributeFindDialogView'
 ], function($, _, Helper, AbstractDialogView, Attributes, AttributeFindDialogView) {
   var EntityAttrDialogView = AbstractDialogView.extend({
-    el: '#dialog_entity_attr',
+    // el: '#dialog_entity_attr',
     events: function() {
       var addEvents = {
         "click #dialog_show_find_dialog_attr": "showFindDialogAttrOnClick"
@@ -29,15 +29,16 @@ define([
         'name': this.$('#attr_name')
       });
     },
-    openDialog: function(model, options) {
-      console.debug('EntityAttrDialogView#openDialog');
+    // openDialog: function(model, options) {
+    show: function() {
+      console.debug('EntityAttrDialogView#show');
       // call super method.
-      this.constructor.__super__.openDialog.apply(this, arguments);
+      this.constructor.__super__.show.apply(this, arguments);
 
-      if (!_.isNull(model)) {
+      if (!_.isNull(this.model)) {
         // set attribute name.
         var helper = new Helper();
-        var attr_id = model.get('attr_id');
+        var attr_id = this.model.get('attr_id');
         var attr_name = this.$('#attr_name');
         helper.getAttributeName(attr_id, {
           edit: function(model){

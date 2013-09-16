@@ -102,50 +102,50 @@ define([
     },
 
     // ** Not recommended ** //
-    openDialog: function(model, options) {
-      console.debug('AbstractDialogView:openDialog');
-      console.debug(model);
-      console.debug(options);
-      var self = this;
-      // console.debug(options);
-      this.model = model;
-      this.options = ((_.isNull(options) || _.isUndefined(options)) ? {} : options);
-      if(_.isUndefined(this.options.edit)) {
-        this.options.edit = function(args){return args;};
-      }
-      if (this.model) {
-        this.form.deserialize(model);
-        this.listenTo(this.model, 'error', this.editError);
-      }
-      if(!_.isUndefined(this.editBeforeOpen)) this.editBeforeOpen();
-      (this.$el).dialog({
-        show: {effect: "clip"},
-        hide: {effect: "clip"},
-        width: "auto",
-        modal: true,
-        close: function(e) {
-          self.closeDialog();
-        }
-      });
+    // openDialog: function(model, options) {
+    //   console.debug('AbstractDialogView:openDialog');
+    //   console.debug(model);
+    //   console.debug(options);
+    //   var self = this;
+    //   // console.debug(options);
+    //   this.model = model;
+    //   this.options = ((_.isNull(options) || _.isUndefined(options)) ? {} : options);
+    //   if(_.isUndefined(this.options.edit)) {
+    //     this.options.edit = function(args){return args;};
+    //   }
+    //   if (this.model) {
+    //     this.form.deserialize(model);
+    //     this.listenTo(this.model, 'error', this.editError);
+    //   }
+    //   if(!_.isUndefined(this.editBeforeOpen)) this.editBeforeOpen();
+    //   (this.$el).dialog({
+    //     show: {effect: "clip"},
+    //     hide: {effect: "clip"},
+    //     width: "auto",
+    //     modal: true,
+    //     close: function(e) {
+    //       self.closeDialog();
+    //     }
+    //   });
 
-    },
+    // },
 
     show: function() {
       console.debug('AbstractDialogView:show');
       var self = this;
 
-      if (this.model) {
+      if (self.model) {
         // show view by model data.
-        this.form.deserialize(this.model);
+        self.form.deserialize(self.model);
       }
-      if(!_.isUndefined(this.editBeforeOpen)) this.editBeforeOpen();
-      (this.$el).dialog({
+      if(!_.isUndefined(self.editBeforeOpen)) self.editBeforeOpen();
+      (self.$el).dialog({
         show: {effect: "clip"},
         hide: {effect: "clip"},
         width: "auto",
         modal: true,
         close: function(e) {
-          self.closeDialog();
+          if((self.$el).dialog("isOpen")) self.closeDialog();
         }
       });
 
