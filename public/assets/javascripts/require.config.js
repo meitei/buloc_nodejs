@@ -117,6 +117,125 @@ var viewParts = [
     necessary: ['id'],
     // edit: [{id: 'entity_id'}]
     edit: {id: 'entity_id'}
+  },
+
+  //view settings
+  {
+    id: 'view',
+    el: '#viewView',
+    view: 'ViewView',
+    collection: 'Views',
+    isRoute: true,
+    hasElement: false,
+    children: ['viewDialog'],
+    eventIds: {
+      'newBtn': 'show:viewDialog',
+      'updBtn': 'show:viewDialog'
+    },
+    necessary: ['app_id']
+  },
+  {
+    id: 'viewDialog',
+    el: '#dialog_view',
+    view: 'ViewDialogView',
+    isRoute: false,
+    hasElement: false,
+    subView: ['viewAttr'],
+    children: ['viewAttr'],
+    necessary: ['app_id'],
+    edit: ['app_id']
+  },
+
+  {
+    id: 'viewAttr',
+    el: '#viewAttrs',
+    view: 'ViewAttrView',
+    collection: 'ViewAttrs',
+    isRoute: false,
+    hasElement: false,
+    children: ['viewAttrDialog'],
+    eventIds: {
+      'newBtn': 'show:viewAttrDialog',
+      'updBtn': 'show:viewAttrDialog'
+    },
+    necessary: ['id']
+  },
+  {
+    id: 'viewAttrDialog',
+    el: '#dialog_view_attr',
+    view: 'ViewAttrDialogView',
+    isRoute: false,
+    hasElement: false,
+    necessary: ['id'],
+    // edit: [{id: 'entity_id'}]
+    edit: {id: 'entity_id'}
+  },
+
+  //display settings
+  {
+    id: 'display',
+    el: '#displayView',
+    view: 'displayView',
+    collection: 'Displays',
+    isRoute: true,
+    hasElement: false,
+    children: ['displayDialog'],
+    eventIds: {
+      'newBtn': 'show:displayDialog',
+      'updBtn': 'show:displayDialog'
+    },
+    necessary: ['app_id']
+  },
+  {
+    id: 'displayDialog',
+    el: '#dialog_display',
+    view: 'DisplayDialogView',
+    isRoute: false,
+    hasElement: false,
+    necessary: ['app_id'],
+    edit: ['app_id']
+  },
+
+  //logic settings
+  {
+    id: 'logic',
+    el: '#logicView',
+    view: 'LogicView',
+    collection: 'Logics',
+    isRoute: true,
+    hasElement: false,
+    children: ['logicDialog'],
+    eventIds: {
+      'newBtn': 'show:logicDialog',
+      'updBtn': 'show:logicDialog'
+    },
+    necessary: ['app_id']
+  },
+  {
+    id: 'logicDialog',
+    el: '#dialog_logic',
+    view: 'LogicDialogView',
+    isRoute: false,
+    hasElement: false,
+    subView: ['logicInOut'],
+    children: ['logicInOut'],
+    necessary: ['app_id'],
+    edit: ['app_id']
+  },
+
+  {
+    id: 'logicInOut',
+    el: '#logicInOut',
+    view: 'LogicInOutView',
+    collection: 'LogicInOuts',
+    isRoute: false,
+    hasElement: false,
+    // children: ['viewAttrDialog'],
+    // eventIds: {
+    //   'newBtn': 'show:viewAttrDialog',
+    //   'updBtn': 'show:viewAttrDialog'
+    // },
+    necessary: ['id']
   }
 
 
@@ -133,72 +252,19 @@ var modules = [
   'views/pc/ContentsView',
   'views/pc/MenuView',
 
-
-  'collections/Views',
-  'views/pc/ViewView',
-  'views/pc/ViewDialogView',
-
-  'collections/Displays',
-  'views/pc/DisplayView',
-  'views/pc/DisplayDialogView',
-
-  'collections/Logics',
-  'views/pc/LogicView',
-  'views/pc/LogicDialogView',
-
-  // 'collections/Entities',
-  // 'views/pc/EntityView',
-  // 'views/pc/EntityDialogView'
-
-  // 'collections/Attributes',
-  // 'views/pc/AttributeView',
-  // 'views/pc/AttributeDialogView'
-
 ];
 
-// require(['underscore'], function(_) {
-//   _.each(viewParts, function(vp){
-//     console.debug('追加したがな。');
-//     modules.push('views/pc/' + vp.view);
-//     modules.push('collections/' + vp.collection);
-//   });
-// });
-// var addModules = [];
 viewParts.forEach(function(vp) {
   modules.push('views/pc/' + vp.view);
   if (vp.collection) modules.push('collections/' + vp.collection);
 });
 
 require(modules,
-  function($, Backbone, Bootstrap, Router, Helper, app,
-    ContentsView, MenuView,
-    // Attributes, AttributeView, AttributeDialogView,
-    Views, ViewView, ViewDialogView,
-    Displays, DisplayView, DisplayDialogView,
-    Logics, LogicView, LogicDialogView
-    // Entities, EntityView, EntityDialogView
-    ){
+  function($, Backbone, Bootstrap, Router, Helper, app, ContentsView, MenuView) {
 
   $(function() {
     // $("#menu").menu();
     $("#dialog_find").hide(); // hide a common find dialog.
-    $("#dialog_view_attr").hide(); // hide child dialog.
-    $("#dialog_entity_attr").hide(); // hide child dialog.
-    $("#dialog_logic").hide(); // hide child dialog.
-
-    // // get url attributes.
-    // var url = {};
-    // var urlPattern = /(\w+):\/\/([\w.:]+)\/(\S+)\/([\w]+)/;
-    // var result = window.location.href.match(urlPattern);
-    // if (result != null) {
-    //   url.fullurl = result[0];
-    //   url.protocol = result[1];
-    //   url.host = result[2];
-    //   url.action = result[3];
-    //   url.id = result[4];
-    // }
-
-    // var appInfo = {url: url};
 
     // get url attributes.
     var helper = new Helper();
@@ -210,60 +276,6 @@ require(modules,
     var contentsView = new ContentsView();
     contentsView.render();
 
-    // def attributes
-    // var attributes = new Attributes();
-    // var attributeView = new AttributeView({collection: attributes});
-    // var attributeDialogView = new AttributeDialogView({collection: attributes});
-
-    // console.debug(AttributeDialogView.prototype);
-
-    // def views
-    var views = new Views();
-    var viewView = new ViewView({collection: views});
-    var viewDialogView = new ViewDialogView({collection: views});
-
-    // def display
-    var displays = new Displays();
-    var displayView = new DisplayView({collection: displays});
-    var displayDialogView = new DisplayDialogView({collection: displays});
-
-    // def logic
-    var logics = new Logics();
-    var logicView = new LogicView({collection: logics});
-    var logicDialogView = new LogicDialogView({collection: logics});
-
-    // def entity
-    // var entities = new Entities();
-    // var entityView = new EntityView({collection: entities});
-    // var entityDialogView = new EntityDialogView({collection: entities});
-
-    // routes settings
-    // var router = new Router();
-    var router = app.router;
-
-    // router.on("route:show_attribute", function() {
-    //   console.debug("called show attribute.");
-    //   // contentsView.showChildView(attributeView, attributeDialogView);
-    //   app.event.trigger('show:attribute');
-    // });
-    router.on("route:show_view", function() {
-      console.debug("called show view.");
-      contentsView.showChildView(viewView, viewDialogView);
-    });
-    router.on("route:show_display", function() {
-      console.debug("called show display.");
-      contentsView.showChildView(displayView, displayDialogView);
-    });
-    router.on("route:show_logic", function() {
-      console.debug("called show logic.");
-      contentsView.showChildView(logicView, logicDialogView);
-    });
-    // router.on("route:show_entity", function() {
-    //   console.debug("called show entity.");
-    //   contentsView.showChildView(entityView, entityDialogView);
-    // });
-
-    // var menuView = new MenuView();
     var menuView = new MenuView();
     menuView.render();
 
