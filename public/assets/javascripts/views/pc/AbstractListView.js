@@ -21,11 +21,11 @@ define([
       console.debug("AbstractView#render");
       // console.debug(parent);
       // console.debug(this.$el);
-      this.$el.html(JST['listView']({title: this.title}));
+      this.$el.html(JST.listView({title: this.title}));
       this.list = this.$("#list");
       // this.parent = parent;
 
-      // paging is pending now.
+      //FIXME paging is pending now.
       this.fetch({skip:0, limit:10});
       this.rendered = true;
     },

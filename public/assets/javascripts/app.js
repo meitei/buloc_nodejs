@@ -152,6 +152,23 @@ define([
 
       });
 
+      // catch a delete event.
+      self.event.on('new:' + vp.id, function(obj, opt) {
+        console.debug('fire event -> new:' + vp.id);
+        console.debug('option =>');
+        console.debug(opt);
+        if (!obj || !obj.collection) return;
+
+        if (!obj.collection.add(opt.data, {wait: true})) {
+          console.error('validate failed.');
+          return;
+        }
+
+
+      });
+
+
+
     });
   };
 
